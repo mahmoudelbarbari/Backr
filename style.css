@@ -13,3 +13,54 @@ body {
 background:rgba(0,0,0,0.35);
 z-index:2
 }
+.hero-section__content{
+z-index: 3
+}
+.about-section {
+  min-height: 100vh;
+  background: url('./assets/images/aboutus.jpg') center center/cover no-repeat;
+}
+.about-section__overlay {
+  background: rgba(0,0,0,0.55);
+  z-index: 1;
+}
+.about-section__content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.about-section__title {
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.about-section__subtitle {
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  max-width: 37.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.about-section__features {
+  color: #fff;
+  font-size: 1.25rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.about-section__feature-icon {
+  font-size: 1.3em;
+  vertical-align: middle;
+}
+.about-section__image {
+  max-width: 100%;
+  border-radius: 1.5rem;
+ 
+}
+@media (max-width: 991px) {
+  .about-section__title {
+    font-size: 1.5rem;
+  }
+  .about-section__subtitle {
+    font-size: 1rem;
+  }
+}
