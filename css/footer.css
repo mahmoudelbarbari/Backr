@@ -1,0 +1,17 @@
+.footer-section {
+    padding-bottom: 2.5rem;
+  }
+
+
+.footer-section__links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+.footer-section__social a {
+  font-size: 1.3rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.footer-section__social a:hover {
+  opacity: 1;
+}

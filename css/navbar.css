@@ -1,0 +1,54 @@
+.navbar.backr-navbar {
+  background: none !important;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1050;
+  transition: background 0.3s, box-shadow 0.3s;
+  color: #000 !important;
+}
+.navbar.backr-navbar.navbar--scrolled {
+  transition: all 0.3s ease;
+  background: #ffffff75 !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07) !important;
+}
+.navbar.backr-navbar .backr-navbar__logo,
+.navbar.backr-navbar .nav-link,
+.navbar.backr-navbar .btn {
+  transition: all 0.3s ease;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+.navbar.backr-navbar.navbar--scrolled .backr-navbar__logo,
+.navbar.backr-navbar.navbar--scrolled .nav-link,
+.navbar.backr-navbar.navbar--scrolled .btn {
+  transition: all 0.3 ease;
+  color: #232323 !important;
+  border-color: #232323 !important;
+}
+.navbar.backr-navbar.navbar--scrolled .btn.btn-dark,
+.navbar.backr-navbar.navbar--scrolled .btn.btn-outline-light {
+  transition: all 0.3s ease;
+  background: #232323 !important;
+  color: #fff !important;
+  border-color: #232323 !important;
+}
+.backr-navbar__signup:hover {
+  transition: all 0.3s ease;
+  background: #fff !important;
+  color: #000 !important;
+}
+.backr-navbar__login {
+  transition: all 0.3s ease;
+  border-radius: 24px;
+  padding: 0.5rem 1.5rem;
+  color: #000;
+}
+.backr-navbar__login:hover {
+  background: #fff !important;
+  color: #000 !important;
+} 
+.backr-navbar__profile{
+display:none !important;
+}

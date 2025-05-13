@@ -1,0 +1,65 @@
+/* =====================
+   Tabs
+   ===================== */
+.auth-modal__tab {
+  font-weight: 700;
+  color: #0808086a !important;
+}
+.auth-modal__tab.active {
+  color: #111 !important;
+}
+
+/* =====================
+   Buttons
+   ===================== */
+.auth-modal__button {
+  background: #111 !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+.auth-modal__button:hover {
+  background: #000 !important;
+}
+
+/* =====================
+   Close Button
+   ===================== */
+.auth-modal__close{
+  opacity: 0.9 !important;
+  background-color: #ffffff97 !important;
+  z-index: 2 !important;
+}
+.auth-modal__close:hover{
+  opacity: 1 !important;
+  background-color: #ffffff !important;
+}
+
+
+
+
+/* =====================
+   Login Image
+   ===================== */
+.auth-modal__image {
+  min-height: 100% !important;
+  min-width: 100% !important;
+}
+
+/* =====================
+   Form 
+   ===================== */
+.auth-modal__form-section {
+  min-height: 100%;
+}
+
+/* =====================
+   Logo
+   ===================== */
+.backr-login__logo{
+  position: absolute;
+  z-index: 1;
+  text-decoration: none;
+  font-size: 3rem;
+  top: 35%;
+  left: 43%;
+}

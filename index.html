@@ -4,35 +4,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
-    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/auth.css">
+    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/footer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <title>Backr</title>
 </head>
 
 <body>
-    <section
-        class="hero-section position-relative d-flex align-items-center justify-content-center text-center overflow-hidden">
-        <video class="hero-section__video position-absolute top-0 start-0 w-100 h-100" autoplay muted loop >
-            <source src="https://pouch.jumpshare.com/preview/LzxL8GJoJzLq8ho5pQEae8pxpRwEMUUMgsHRtOZM1JuRWncEkKmRXYDjmrRefS4eT_hAIiJEJ6RkvydzDzIzQJp5FonmKtqz_dpdAEiBd9VN57BB5g5f246F2n-Tr-r3KMUD6gzlRb_PlbQ_AWwW4W6yjbN-I2pg_cnoHs_AmgI.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-        </video>
-        <div class="hero-section__overlay position-absolute top-0 start-0 w-100 h-100"></div>
-        <div class="hero-section__content position-relative w-100" >
-            <h1 class="hero-section__title display-4 fw-bold mb-3 text-white">
-                Create on your terms
-            </h1>
-            <p class="hero-section__subtitle lead mb-4 text-white">
-                Launch your next big idea, connect with passionate backers, and bring
-                your Campaign to life with Backr.
-            </p>
-            <button class="btn btn-light btn-lg hero-section__cta">
-                Get Started
-            </button>
-        </div>
-    </section>
+  <div id="navbarContainer"></div>
+    <section class="hero-section scroll-section position-relative d-flex align-items-center justify-content-center text-center overflow-hidden">
+  <video class="hero-section__video position-absolute top-0 start-0 w-100 h-100" autoplay muted loop playsinline  ><source src="https://d609glervfwtx.cloudfront.net/b2q186%2Ffile%2Fd498608282f68dd54dd0315c6a0d4ff9_3c5c778553a73441ac9d57622ed4442a.mp4?response-content-disposition=inline%3Bfilename%3D%22d498608282f68dd54dd0315c6a0d4ff9_3c5c778553a73441ac9d57622ed4442a.mp4%22%3B&response-content-type=video%2Fmp4&Expires=1747177212&Signature=Y47UIu4XjlLmgSKdspO8xny-Mpn-l2KvcsinnNQzBpfLSLMja9OOsVi~8Qx1bnAFP1~8pD-bfZqbtMn~UCiNQPP3ALOa52tnAEhcokMTeN8UEIN4SiWc84D7AVC1gDnkdUM1sWDdvwUol~xsw6JoyJntIwVrT98qfPcRiUjVcNWgOaYlvpiTbVhoyUCf3KSEn0tSBv7O9fKhX6XbGaOcsRHzlx8J71HvQoa92hLMYtsXtSSXnmC9Ztf88Z7uRkr9IyOWa2HUSGa8dKEZFeTXA4WfKs7uzhZ7bYmMZjeZOOIiOn5cNy50qZaoMD30ekd5d-NIaUsCeATP72EwVhVZWg__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ" type="video/mp4">Your browser does not support the video tag.</video>
+  <div class="hero-section__overlay position-absolute top-0 start-0 w-100 h-100" ></div>
+  <div class="hero-section__content position-relative w-100" style="z-index:3;">
+    <h1 class="hero-section__title display-4 fw-bold mb-3 text-white">Create on your terms</h1>
+    <p class="hero-section__subtitle lead mb-4 text-white">Launch your next big idea, connect with passionate backers, and bring your Campaign to life with Backr.</p>
+    <button class="btn btn-light btn-lg hero-section__cta">Get Started</button>
+  </div>
+</section>
     <section class="about-section position-relative d-flex align-items-center justify-content-center text-center overflow-hidden" id="about-section">
   <div class="about-section__overlay position-absolute top-0 start-0 w-100 h-100"></div>
   <div class="about-section__content position-relative w-100">
@@ -46,8 +38,9 @@
       <div><strong>Grow Together</strong> and turn ideas into reality, one pledge at a time</div>
     </div>
   </div>
-</section>
+</section><div id="loginContainer"></div>
+<div id="footerContainer"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./js/main.js"></script>
 </body>
-
 </html>
