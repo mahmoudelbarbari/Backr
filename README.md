@@ -14,3 +14,5 @@ o Flexible Funding Options:
   - Choose between all-or-nothing or keep-what-you-raise models to suit your project goals.
 
 Backr is more than just a funding platform—it's a launchpad for dreams, a space for innovation, and a community where support turns into success.
+# License
+This project is open source and available under the MIT License.
