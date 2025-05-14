@@ -49,9 +49,33 @@ async function loadFooter() {
     }
 }
 
+async function dashboardNavBar() {
+    try{
+        const response = await fetch('./components/dashBoadrNavBar.html');
+        if(!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+        const dashboardNavBarContent = await response.text();
+        document.getElementById('dashboard-nav-bar').innerHTML = dashboardNavBarContent;
+    } catch(e){
+        console.error(`Error loading dashboard navBar: `, e);
+    }
+}
 
+
+async function campaignDashboardTable() {
+    try {
+        const response = await fetch('./components/dashboardTable.html');
+        if(!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+        const tableContent = await response.text();
+        document.getElementById("campaignsTabelContent").innerHTML = tableContent
+    } catch(e){
+        console.error(`Error loading campaign tabel: ${e}`);
+    }
+}
 window.addEventListener('DOMContentLoaded', loadNavbar);
 
+window.addEventListener('DOMContentLoaded', dashboardNavBar);
+
+window.addEventListener('DOMContentLoaded', campaignDashboardTable);
 
 window.addEventListener('DOMContentLoaded', loadFooter);
 
