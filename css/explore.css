@@ -1,5 +1,6 @@
 body{
-    background: #93bfff !important;
+background: #283E4A !important;
+background: radial-gradient(circle, rgba(40, 62, 74, 1) 45%, rgba(0, 0, 0, 1) 89%) !important;
  
 }
 .hero-section {
