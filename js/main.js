@@ -1,6 +1,6 @@
 async function loadModal() {
     try {
-        const response = await fetch('./components/auth.html');
+        const response = await fetch('../components/auth.html');
         if (!response.ok) {
             throw new Error(` error! status: ${response.status}`);
         }
@@ -21,7 +21,7 @@ async function loadModal() {
 async function loadNavbar() {
     try {
 
-        const response = await fetch('./components/navbar.html');
+        const response = await fetch('../components/navbar.html');
         if (!response.ok) throw new Error(` error! status: ${response.status}`);
         const navbarContent = await response.text();
         document.getElementById('navbarContainer').innerHTML = navbarContent;
@@ -40,7 +40,7 @@ async function loadNavbar() {
 
 async function loadFooter() {
     try {
-        const response = await fetch('./components/footer.html');
+        const response = await fetch('../components/footer.html');
         if (!response.ok) throw new Error(` error! status: ${response.status}`);
         const footerContent = await response.text();
         document.getElementById('footerContainer').innerHTML = footerContent;
@@ -51,7 +51,7 @@ async function loadFooter() {
 
 async function dashboardNavBar() {
     try{
-        const response = await fetch('./components/dashBoadrNavBar.html');
+        const response = await fetch('../components/dashBoadrNavBar.html');
         if(!response.ok) throw new Error(`Something went wrong: ${response.status}`);
         const dashboardNavBarContent = await response.text();
         document.getElementById('dashboard-nav-bar').innerHTML = dashboardNavBarContent;
@@ -63,7 +63,7 @@ async function dashboardNavBar() {
 
 async function campaignDashboardTable() {
     try {
-        const response = await fetch('./components/dashboardTable.html');
+        const response = await fetch('../components/dashboardTable.html');
         if(!response.ok) throw new Error(`Something went wrong: ${response.status}`);
         const tableContent = await response.text();
         document.getElementById("campaignsTabelContent").innerHTML = tableContent
