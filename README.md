@@ -3,10 +3,13 @@ Backr is an innovative crowdfunding web application designed to connect passiona
 # Features:
 o User-Friendly Campaign Creation:
   - Launch your campaign with customizable templates, engaging visuals, and compelling storytelling tools.
+
 o Secure Payment Integration:
   -  Accept contributions safely through trusted payment gateways.
+
 o Real-Time Analytics:
   - Monitor campaign using your dashboard.
+
 o Flexible Funding Options:
   - Choose between all-or-nothing or keep-what-you-raise models to suit your project goals.
 
