@@ -3,8 +3,14 @@
   padding-right: 20rem !important; /* Adjust the value as needed */
 }
 
-.deleteCampaign{
+.deleteCampaign,.acceptCampaign{
   background-color: transparent;
   border: none;
-  color: grey;
+
+}
+.deleteCampaign{
+    color: grey;
+}
+.acceptCampaign{
+color: #196232;
 }
