@@ -1,0 +1,10 @@
+.table td:nth-child(2),
+.table th:nth-child(2) {
+  padding-right: 20rem !important; /* Adjust the value as needed */
+}
+
+.deleteCampaign{
+  background-color: transparent;
+  border: none;
+  color: grey;
+}
