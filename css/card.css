@@ -51,12 +51,12 @@
     90deg,
     rgba(42, 123, 155, 1) 0%,
     rgba(87, 199, 133, 1) 50%,
-    rgba(237, 221, 83, 1) 100%
+    rgb(255, 207, 207) 100%
   );
 }
 
 .progress::-webkit-progress-bar {
-  background-color: #2a63ad;
+  background-color: #7f858c;
 }
 
 .card-body {
