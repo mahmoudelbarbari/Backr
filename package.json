@@ -1,0 +1,25 @@
+{
+  "name": "backr",
+  "version": "1.0.0",
+  "description": "Backr is an innovative crowdfunding web application designed to connect passionate creators, entrepreneurs, and changemakers with a global community of backers. Whether you're launching a product, funding a creative endeavor, or supporting a social cause, Backr provides the tools and visibility you need to bring your vision to life\r # Features:\r o User-Friendly Campaign Creation:\r   - Launch your campaign with customizable templates, engaging visuals, and compelling storytelling tools.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "json-server --watch db.json --port 3000 --static ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahmoudelbarbari/Backr.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mahmoudelbarbari/Backr/issues"
+  },
+  "homepage": "https://github.com/mahmoudelbarbari/Backr#readme",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
+}
