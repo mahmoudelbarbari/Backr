@@ -61,6 +61,7 @@ async function dashboardNavBar() {
 }
 
 
+
 async function campaignDashboardTable() {
     try {
         const response = await fetch('../components/dashboardTable.html');
