@@ -1,0 +1,109 @@
+body{
+  
+}
+.campaign {
+    background: #f8f9fa;
+
+    padding: 3rem 0;
+}
+
+.campaign__image-holder {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.campaign__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.campaign__image--loading {
+    opacity: 0;
+}
+
+.campaign__placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #6c757d;
+}
+
+.campaign__placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.campaign__progress-container {
+    width: 100%;
+}
+
+.campaign__progress-bar {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #e9ecef;
+}
+
+
+.campaign__progress-bar::-webkit-progress-value {
+    background-color: #212529;
+    border-radius: 5px;
+}
+
+.campaign__progress-bar::-webkit-progress-bar {
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+
+
+
+.campaign__reward {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+}
+
+.campaign__creator {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.campaign__creator-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.payment-modal__form {
+    margin-bottom: 1.5rem;
+}
+
+.payment-modal__input {
+    margin-bottom: 1rem;
+}
+
+.payment-modal__input-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.payment-modal__footer {
+    border: none;
+    padding-top: 0;
+} 
