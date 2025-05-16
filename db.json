@@ -39,6 +39,15 @@
       "password": "johny123",
       "role": "campaigner",
       "isActive": true
+    },
+    {
+      "id": "b3e0",
+      "name": "mahmoud awad",
+      "email": "mahmoud@gmail.com",
+      "phoneNumber": "01026240574",
+      "password": "4223617",
+      "role": "user",
+      "isActive": true
     }
   ],
   "campaigns": [
