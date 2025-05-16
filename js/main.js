@@ -6,6 +6,7 @@ async function loadModal() {
         }
         const modalContent = await response.text();
         document.getElementById('loginContainer').innerHTML = modalContent;
+        document.dispatchEvent(new CustomEvent('authLoaded'));
         
 
         const modalElement = document.getElementById('authModal');

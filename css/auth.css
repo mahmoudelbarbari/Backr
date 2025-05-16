@@ -63,3 +63,16 @@
   top: 35%;
   left: 43%;
 }
+
+
+/* =====================
+   Error Message handling
+   ===================== */
+.error-message {
+  color: red;
+  margin-top: 15px;
+}
+.success-message {
+  color: green;
+  margin-top: 15px;
+}

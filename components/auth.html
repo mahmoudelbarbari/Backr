@@ -1,105 +1,217 @@
-
-<div class="modal fade auth-modal" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+<div
+  class="modal fade auth-modal"
+  id="authModal"
+  tabindex="-1"
+  aria-labelledby="authModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-xl auth-modal__dialog">
     <div class="modal-content p-0 auth-modal__content">
       <div class="row g-0 auth-modal__row">
-
         <div
-          class="col-lg-6 position-relative bg-light d-flex align-items-center justify-content-center p-0 auth-modal__image-section">
-          <a class=" backr-login__logo fw-bold text-white" href="#">Backr</a>
-          <img src="../assets/images/login.jpg" class="img-fluid w-100 h-100 object-fit-cover auth-modal__image" alt="Modal Image" />
-          <button type="button"
+          class="col-lg-6 position-relative bg-light d-flex align-items-center justify-content-center p-0 auth-modal__image-section"
+        >
+          <a class="backr-login__logo fw-bold text-white" href="#">Backr</a>
+          <img
+            src="../assets/images/login.jpg"
+            class="img-fluid w-100 h-100 object-fit-cover auth-modal__image"
+            alt="Modal Image"
+          />
+          <button
+            type="button"
             class="btn-close position-absolute top-0 start-0 m-3 bg-white rounded-circle p-2 auth-modal__close"
-            data-bs-dismiss="modal" aria-label="Close"></button>
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
 
-        <div class="col-lg-6 col-12 d-flex align-items-center justify-content-center auth-modal__form-section">
+        <div
+          class="col-lg-6 col-12 d-flex align-items-center justify-content-center auth-modal__form-section"
+        >
           <div class="w-100 p-4 p-md-5 auth-modal__form-wrapper">
-
-            <ul class="nav nav-tabs justify-content-center mb-4 auth-modal__tabs" id="authTab" role="tablist">
+            <ul
+              class="nav nav-tabs justify-content-center mb-4 auth-modal__tabs"
+              id="authTab"
+              role="tablist"
+            >
               <li class="nav-item auth-modal__tab-item" role="presentation">
-                <button class="nav-link active auth-modal__tab" id="login-tab" data-bs-toggle="tab"
-                  data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">
+                <button
+                  class="nav-link active auth-modal__tab"
+                  id="login-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#login"
+                  type="button"
+                  role="tab"
+                  aria-controls="login"
+                  aria-selected="true"
+                >
                   Login
                 </button>
               </li>
               <li class="nav-item auth-modal__tab-item" role="presentation">
-                <button class="nav-link auth-modal__tab" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup"
-                  type="button" role="tab" aria-controls="signup" aria-selected="false">
+                <button
+                  class="nav-link auth-modal__tab"
+                  id="signup-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#signup"
+                  type="button"
+                  role="tab"
+                  aria-controls="signup"
+                  aria-selected="false"
+                >
                   Sign Up
                 </button>
               </li>
             </ul>
 
-            <div class="tab-content auth-modal__tab-content" id="authTabContent">
-
-              <div class="tab-pane fade show active auth-modal__pane" id="login" role="tabpanel"
-                aria-labelledby="login-tab">
-                <h2 class="mb-3 text-center fw-bold auth-modal__title">Welcome!</h2>
+            <div
+              class="tab-content auth-modal__tab-content"
+              id="authTabContent"
+            >
+              <div
+                class="tab-pane fade show active auth-modal__pane"
+                id="login"
+                role="tabpanel"
+                aria-labelledby="login-tab"
+              >
+                <h2 class="mb-3 text-center fw-bold auth-modal__title">
+                  Welcome!
+                </h2>
                 <p class="text-muted text-center mb-4 auth-modal__desc">
-                  login to your account to continue using Backr 
+                  login to your account to continue using Backr
                 </p>
                 <form class="auth-modal__form">
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="loginEmail" class="form-label auth-modal__label">Email</label>
-                    <input type="email" class="form-control rounded-3 auth-modal__input" id="loginEmail"
-                      placeholder="Email" />
+                    <label for="loginEmail" class="form-label auth-modal__label"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="loginEmail"
+                      placeholder="Email"
+                    />
                   </div>
-               
+
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="loginPassword" class="form-label auth-modal__label">Password</label>
-                    <input type="password" class="form-control rounded-3 auth-modal__input" id="loginPassword"
-                      placeholder="Password" />
+                    <label
+                      for="loginPassword"
+                      class="form-label auth-modal__label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="loginPassword"
+                      placeholder="Password"
+                    />
                   </div>
-                  <div class="d-flex justify-content-between align-items-center mb-3 auth-modal__forgot-row">
-                    <a href="#" class="small text-decoration-none auth-modal__forgot-link">Forgot your password?</a>
+                  <div
+                    class="d-flex justify-content-between align-items-center mb-3 auth-modal__forgot-row"
+                  >
+                    <a
+                      href="#"
+                      class="small text-decoration-none auth-modal__forgot-link"
+                      >Forgot your password?</a
+                    >
                   </div>
-                  <button type="submit" class="btn w-100 mb-2 rounded-3 fw-bold auth-modal__button">
+                  <button
+                    type="submit"
+                    class="btn w-100 mb-2 rounded-3 fw-bold auth-modal__button"
+                  >
                     Login
                   </button>
                 </form>
               </div>
 
-              <div class="tab-pane fade auth-modal__pane" id="signup" role="tabpanel" aria-labelledby="signup-tab">
-                <h2 class="mb-3 text-center fw-bold auth-modal__title">Create Account</h2>
+              <div
+                class="tab-pane fade auth-modal__pane"
+                id="signup"
+                role="tabpanel"
+                aria-labelledby="signup-tab"
+              >
+                <h2 class="mb-3 text-center fw-bold auth-modal__title">
+                  Create Account
+                </h2>
                 <p class="text-muted text-center mb-4 auth-modal__desc">
-                  create an account to start using Backr 
+                  create an account to start using Backr
                 </p>
-                <form class="auth-modal__form">
+                <form class="auth-modal__form" id="signupForm">
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="signupName" class="form-label auth-modal__label">Full Name</label>
-                    <input type="text" class="form-control rounded-3 auth-modal__input" id="signupName"
-                      placeholder="Full Name" />
+                    <label for="signupName" class="form-label auth-modal__label"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="signupName"
+                      placeholder="Full Name"
+                    />
                   </div>
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="signupEmail" class="form-label auth-modal__label">Email</label>
-                    <input type="email" class="form-control rounded-3 auth-modal__input" id="signupEmail"
-                      placeholder="Email" />
+                    <label
+                      for="signupEmail"
+                      class="form-label auth-modal__label"
+                      >Email</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="signupEmail"
+                      placeholder="Email"
+                    />
                   </div>
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="signupPhone" class="form-label auth-modal__label">Phone Number</label>
-                    <input type="tel" class="form-control rounded-3 auth-modal__input" id="signupPhone"
-                      placeholder="Phone Number" />
+                    <label
+                      for="signupPhone"
+                      class="form-label auth-modal__label"
+                      >Phone Number</label
+                    >
+                    <input
+                      type="tel"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="signupPhone"
+                      placeholder="Phone Number"
+                    />
                   </div>
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="signupPassword" class="form-label auth-modal__label">Password</label>
-                    <input type="password" class="form-control rounded-3 auth-modal__input" id="signupPassword"
-                      placeholder="Password" />
+                    <label
+                      for="signupPassword"
+                      class="form-label auth-modal__label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="signupPassword"
+                      placeholder="Password"
+                    />
                   </div>
                   <div class="mb-3 auth-modal__form-group">
-                    <label for="signupConfirmPassword" class="form-label auth-modal__label">Confirm Password</label>
-                    <input type="password" class="form-control rounded-3 auth-modal__input" id="signupConfirmPassword"
-                      placeholder="Confirm Password" />
+                    <label
+                      for="signupConfirmPassword"
+                      class="form-label auth-modal__label"
+                      >Confirm Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control rounded-3 auth-modal__input"
+                      id="signupConfirmPassword"
+                      placeholder="Confirm Password"
+                    />
                   </div>
-                  <button type="submit" class="btn w-100 mb-2 rounded-3 fw-bold auth-modal__button">
+                  <button
+                    type="submit"
+                    class="btn w-100 mb-2 rounded-3 fw-bold auth-modal__button"
+                  >
                     Sign Up
                   </button>
                 </form>
+                <div class="message"></div>
               </div>
             </div>
           </div>
         </div>
-  
       </div>
     </div>
   </div>
