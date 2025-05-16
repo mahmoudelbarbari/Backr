@@ -1,0 +1,14 @@
+.deleteCampaign,.acceptCampaign{
+  background-color: transparent;
+  border: none;
+
+}
+.deleteCampaign{
+    color: grey;
+}
+.acceptCampaign{
+color: #196232;
+}
+.eye-view:hover{
+background-color: rgb(158, 231, 251) !important;
+}
