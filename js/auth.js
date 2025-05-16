@@ -22,6 +22,7 @@ export function registerAccount() {
       const confirmPassword = document.getElementById(
         "signupConfirmPassword"
       ).value;
+      const role = document.querySelector('input[name="role"]:checked').value;
 
       if (password !== confirmPassword) {
         errorMessage.textContent = "Passwords do not match";
@@ -47,7 +48,7 @@ export function registerAccount() {
           email,
           phoneNumber,
           password,
-          role: "user",
+          role: role,
           isActive: true,
         };
 
