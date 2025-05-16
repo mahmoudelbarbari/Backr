@@ -1,6 +1,6 @@
 import { User } from "./apiCalls.js";
 
-export function initializeAuthHandlers() {
+export function registerAccount() {
   const signupForm = document.getElementById("signupForm");
 
   if (!signupForm) {
@@ -10,7 +10,8 @@ export function initializeAuthHandlers() {
   if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const regexPhoneNum = /^(\+201|01|00201)[0-2,5]{1}[0-9]{8}/;
 
       const errorMessage = document.getElementById("message");
 
@@ -30,8 +31,12 @@ export function initializeAuthHandlers() {
         errorMessage.textContent = "Email and password are required";
         errorMessage.className = "error-message";
         return;
-      } else if (regex.test(email) === false) {
+      } else if (regexEmail.test(email) === false) {
         errorMessage.textContent = "Invalid email address";
+        errorMessage.className = "error-message";
+        return;
+      } else if (regexPhoneNum.test(phoneNumber) === false) {
+        errorMessage.textContent = "Invalid phone number";
         errorMessage.className = "error-message";
         return;
       }

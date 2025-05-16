@@ -1,4 +1,4 @@
-import { initializeAuthHandlers } from './auth.js';
+import { registerAccount } from './auth.js';
 
 async function loadModal() {
     try {
@@ -8,7 +8,7 @@ async function loadModal() {
         }
         const modalContent = await response.text();
         document.getElementById('loginContainer').innerHTML = modalContent;
-        initializeAuthHandlers();
+        registerAccount();
         const modalElement = document.getElementById('authModal');
         if (modalElement) {
             const modal = new bootstrap.Modal(modalElement);
