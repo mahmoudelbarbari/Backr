@@ -1,3 +1,5 @@
+
+
 function handleNavbarScroll() {
     const navbar = document.querySelector('.backr-navbar');
     const header = document.querySelector('.header');

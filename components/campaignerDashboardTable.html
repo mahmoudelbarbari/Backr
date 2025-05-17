@@ -6,7 +6,7 @@
   <p class="mx-3 text-muted">Manage your campaigns</p>
   <div class="card-body px-0 pb-2">
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0" id="">
         <thead>
           <tr>
             <th class="ps-4 pe-5 text-muted">Title</th>
@@ -18,7 +18,7 @@
             <th class="text-muted text-center">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="campaignsTabelBody">
           <tr>
             <td class="text-wrap">My First Campaign</td>
             <td class="d-none d-md-table-cell">2025/5/21</td>
@@ -69,7 +69,7 @@
           </div>
           <div class="mb-3">
             <label for="campaignGoal" class="form-label">Goal Amount ($)</label>
-            <input type="number" class="form-control" id="campaignGoal" required min="1" />
+            <input type="number" class="form-control" id="campaignGoal" required min="100" />
           </div>
           <div class="mb-3">
             <label for="campaignImage" class="form-label">Campaign Image</label>
@@ -83,13 +83,13 @@
             <label class="form-label">Rewards</label>
             <div id="rewardsContainer">
               <div class="reward-item mb-2">
-                <input type="text" class="form-control mb-1" name="rewardTitle[]" placeholder="Reward Title" required />
-                <input type="text" class="form-control mb-1" name="rewardDescription[]" placeholder="Reward Description" required />
+                <input type="text" class="form-control mb-1" id="campaignRewardsTitle" name="rewardTitle[]" placeholder="Reward Title" required />
+                <input type="text" class="form-control mb-1" id="campaignRewardsDescription" name="rewardDescription[]" placeholder="Reward Description" required />
                 
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-success">Create Campaign</button>
+          <button type="submit" id="createCampaignBtn"  class="btn btn-success">Create Campaign</button>
         </form>
       </div>
     </div>
