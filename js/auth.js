@@ -22,7 +22,8 @@ export function registerAccount() {
       const confirmPassword = document.getElementById(
         "signupConfirmPassword"
       ).value;
-      // const role = document.querySelector('input[name="role"]:checked').value;
+      const role = document.querySelector('input[name="userType"]:checked').value.toLowerCase();
+      console.log("Selected role:", role);
 
       if (password !== confirmPassword) {
         errorMessage.textContent = "Passwords do not match";
@@ -48,28 +49,28 @@ export function registerAccount() {
           email,
           phoneNumber,
           password,
-          role: "backer",
+          role,
           isActive: true,
+          isApproved: role === "backer"
         };
 
         const res = await User.registerUser(userData);
 
         if (res.id) {
-          errorMessage.textContent = "";
-          errorMessage.className = "";
+          if (errorMessage) {
+            errorMessage.textContent = "";
+            errorMessage.className = "";
+          }
 
-          const loaderDiv = document.createElement("div");
-          loaderDiv.classList.add("loader");
-          errorMessage.appendChild(loaderDiv);
-
+         
           document.getElementById("signupForm").reset();
         }
       } catch (e) {
-        errorMessage.textContent = e.message === "User with this email already exists" 
-          ? "This email is already registered. Please login instead."
-          : "Registration failed. Please try again later.";
-        errorMessage.className = "error-message";
-        console.log(e);
+        if (errorMessage) {
+          errorMessage.textContent = e.message;
+          errorMessage.className = "error-message";
+        }
+        console.error("Registration error:", e);
       }
     }); // end of event listener signup
   }
