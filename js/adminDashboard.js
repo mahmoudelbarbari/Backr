@@ -40,7 +40,7 @@ const displayUsers = (users) => {
         e.preventDefault();
         e.stopPropagation();
 
-        await User.updateUser(user.id, { isActive: !User.isActive });
+        await User.updateUser(user.id, { isActive: !user.isActive });
       }); // end of actionBtn event listener
     }
     userActionsTd.appendChild(actionBtn);
