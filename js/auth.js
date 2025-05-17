@@ -22,7 +22,7 @@ export function registerAccount() {
       const confirmPassword = document.getElementById(
         "signupConfirmPassword"
       ).value;
-      const role = document.querySelector('input[name="role"]:checked').value;
+      // const role = document.querySelector('input[name="role"]:checked').value;
 
       if (password !== confirmPassword) {
         errorMessage.textContent = "Passwords do not match";
@@ -48,7 +48,7 @@ export function registerAccount() {
           email,
           phoneNumber,
           password,
-          role: role,
+          role: "backer",
           isActive: true,
         };
 
@@ -58,21 +58,75 @@ export function registerAccount() {
           errorMessage.textContent = "";
           errorMessage.className = "";
 
-          const loaderDiv = createElement("div");
-          loaderDiv.className = "loader";
+          const loaderDiv = document.createElement("div");
+          loaderDiv.classList.add("loader");
           errorMessage.appendChild(loaderDiv);
 
           document.getElementById("signupForm").reset();
-
-          setTimeout(() => {
-            window.location.href = "adminDashboard.html";
-          }, 2000);
         }
       } catch (e) {
-        errorMessage.textContent =
-          "Registration failed. Please try again later.";
+        errorMessage.textContent = e.message === "User with this email already exists" 
+          ? "This email is already registered. Please login instead."
+          : "Registration failed. Please try again later.";
         errorMessage.className = "error-message";
+        console.log(e);
       }
     }); // end of event listener signup
   }
 }
+
+export function loginAccount() {
+  const loginForm = document.getElementById("loginForm");
+  if (!loginForm) {
+    console.error("Login form not found");
+    return;
+  }
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const errorMessage = document.getElementById("messagelogin");
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    if (email === "" || password === "") {
+      errorMessage.textContent = "Email and password are required";
+      errorMessage.className = "error-message";
+      return;
+    } else if (regexEmail.test(email) === false) {
+      errorMessage.textContent = "Invalid email address";
+      errorMessage.className = "error-message";
+      return;
+    }
+
+    try {
+      const loginData = {
+        email,
+        password,
+      };
+
+      const res = await User.loginUser(loginData);
+      if (res.id) {
+        errorMessage.textContent = "";
+        errorMessage.className = "";
+        sessionStorage.setItem("user", JSON.stringify(res));
+      }
+      
+      if (res.role === "admin") {
+        window.location.href = "../adminDashboard.html";
+      } else if (res.role === "campaigner") {
+        window.location.href = "../campaignerDashboard.html";
+      } else if (res.role === "backer") {
+        window.location.href = "../";
+      }
+    } catch (err) {
+      errorMessage.textContent = "Invalid email or password";
+      errorMessage.className = "error-message";
+      console.log(err);
+    }
+  });
+}
+
+
+ 
+

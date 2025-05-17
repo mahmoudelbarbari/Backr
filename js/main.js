@@ -1,4 +1,5 @@
 import { registerAccount } from './auth.js';
+import { loginAccount } from './auth.js';
 
 async function loadModal() {
     try {
@@ -9,6 +10,8 @@ async function loadModal() {
         const modalContent = await response.text();
         document.getElementById('loginContainer').innerHTML = modalContent;
         registerAccount();
+        loginAccount();
+     
         const modalElement = document.getElementById('authModal');
         if (modalElement) {
             const modal = new bootstrap.Modal(modalElement);
@@ -19,23 +22,45 @@ async function loadModal() {
     }
 }
 
+
 async function loadNavbar() {
     try {
-
         const response = await fetch('../components/navbar.html');
         if (!response.ok) throw new Error(` error! status: ${response.status}`);
         const navbarContent = await response.text();
         document.getElementById('navbarContainer').innerHTML = navbarContent;
-
-        
-
         
         const signBtn = document.getElementById('signBtn');
         if (signBtn) {
             signBtn.addEventListener('click', loadModal);
         }
+        
+  
+        await checkLogin();
     } catch (error) {
         console.error('Error loading navbar:', error);
+    }
+}
+async function checkLogin() {
+    try {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        if (user) {
+            console.log(user);
+            const profileBtn = document.getElementById("Profilebtn");
+            const loginBtn = document.getElementById("signBtn");
+            profileBtn.style.display = "block";
+            loginBtn.style.display = "none";    
+        } else {
+            const profileBtn = document.getElementById("Profilebtn");
+            const loginBtn = document.getElementById("signBtn");
+            profileBtn.style.display = "none";
+            loginBtn.style.display = "block";
+        }
+
+
+        
+    } catch (e) {
+        console.error(`Error in checkLogin: ${e}`);
     }
 }
 
@@ -73,6 +98,9 @@ async function campaignDashboardTable() {
         console.error(`Error loading campaign tabel: ${e}`);
     }
 }
+
+
+
 window.addEventListener('DOMContentLoaded', loadNavbar);
 
 window.addEventListener('DOMContentLoaded', dashboardNavBar);
@@ -80,7 +108,6 @@ window.addEventListener('DOMContentLoaded', dashboardNavBar);
 window.addEventListener('DOMContentLoaded', campaignDashboardTable);
 
 window.addEventListener('DOMContentLoaded', loadFooter);
-
 
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.backr-navbar');

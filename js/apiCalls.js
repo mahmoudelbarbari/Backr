@@ -22,6 +22,14 @@ export class User {
   }
 
   static async registerUser(userData) {
+    // First check if user exists
+    const checkUser = await fetch(`${BASE_URL}/users?email=${userData.email}`);
+    const existingUsers = await checkUser.json();
+    
+    if (existingUsers.length > 0) {
+      throw new Error("User with this email already exists");
+    }
+
     const res = await fetch(`${BASE_URL}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -29,6 +37,25 @@ export class User {
     });
     return await res.json();
   }
+  static async loginUser(userData) {
+    try{
+      const res = await fetch(`${BASE_URL}/users?email=${userData.email}`);
+      
+      const users = await res.json();
+      if (users.length === 0) {
+        throw new Error("User not found");
+      }
+      const user = users[0];
+      if (user.password !== userData.password) {
+        throw new Error("Invalid password");
+      }
+      return user;
+    } catch (error) {
+      console.error("Error logging in user:", error);
+      return null;
+    }
+  }
+    
 
   static async updateUser(id, updates) {
     const res = await fetch(`${BASE_URL}/users/${id}`, {
