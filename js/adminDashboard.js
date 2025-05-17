@@ -1,7 +1,6 @@
 import { User, Campaign } from "./apiCalls.js";
 
 const userData = document.getElementById("usersTableData");
-const campaignsData = document.getElementById("campaignsTableData");
 let allUsers = [];
 let allCampaigns = [];
 
@@ -41,7 +40,7 @@ const displayUsers = (users) => {
         e.stopPropagation();
 
         await User.updateUser(user.id, { isActive: !user.isActive });
-      }); // end of actionBtn event listener
+      });
     }
     userActionsTd.appendChild(actionBtn);
 
@@ -57,75 +56,86 @@ const displayUsers = (users) => {
 };
 
 const displayCampaigns = (campaigns) => {
-  campaignsData.innerHTML = "";
-  campaigns.forEach((campaign) => {
-    const campaignRowTr = document.createElement("tr");
-    const campaignIdTd = document.createElement("td");
-    const campaignTitleTd = document.createElement("td");
-    const campaignDeadlineTd = document.createElement("td");
-    const campaignRaisedTd = document.createElement("td");
-    const campaignGoalTd = document.createElement("td");
-    const campaignCategory = document.createElement("td");
-    const campaignActionsTd = document.createElement("td");
+  const campaignsData = document.getElementById("campaignsTableBody");
+  if (!campaignsData) {
+    console.error('Campaigns table not found!');
+    return;
+  }
 
-    campaignIdTd.textContent = campaign.creatorId;
-    campaignTitleTd.textContent = campaign.title;
-    campaignDeadlineTd.textContent = new Date(
-      campaign.deadline
-    ).toLocaleDateString();
-    campaignRaisedTd.textContent = `$${campaign.raised.toFixed(2)}`;
-    campaignGoalTd.textContent = `$${campaign.goal.toFixed(2)}`;
-    campaignCategory.textContent = campaign.category;
+  try {
+    campaignsData.innerHTML = "";
+    campaigns.forEach(async (campaign) => {
+      const campaignRowTr = document.createElement("tr");
+      const campaignCreatorTd = document.createElement("td");
+      const campaignTitleTd = document.createElement("td");
+      const campaignDeadlineTd = document.createElement("td");
+      const campaignRaisedTd = document.createElement("td");
+      const campaignGoalTd = document.createElement("td");
+      const campaignCategory = document.createElement("td");
+      const campaignActionsTd = document.createElement("td");
 
-    const actionBtn = document.createElement("button");
-    actionBtn.type = "button";
-    actionBtn.innerHTML = campaign.isApproved
-      ? `<i class="bi bi-person-x"></i>`
-      : `<i class="bi bi-person-check"></i>`;
-    actionBtn.className = campaign.isApproved
-      ? "btn btn-outline-danger btn-sm me-1"
-      : "btn btn-outline-success btn-sm";
+  const creatorName = await User.getUsersById(campaign.creatorId); 
+console.log(creatorName);
+  
 
-    actionBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+      campaignCreatorTd.textContent = creatorName.name;
+      campaignTitleTd.textContent = campaign.title;
+      campaignDeadlineTd.textContent = new Date(
+        campaign.deadline
+      ).toLocaleDateString();
 
-      await Campaign.updateCampaign(campaign.id, {
-        isApproved: !campaign.isApproved,
+   
+      const raisedAmount = parseFloat(campaign.raised) || 0;
+      const goalAmount = parseFloat(campaign.goal) || 0;
+      
+      campaignRaisedTd.textContent = `$${raisedAmount.toFixed(2)}`;
+      campaignGoalTd.textContent = `$${goalAmount.toFixed(2)}`;
+      campaignCategory.textContent = campaign.category;
+
+      const actionBtn = document.createElement("button");
+      actionBtn.type = "button";
+      actionBtn.innerHTML = campaign.isApproved
+        ? `<i class="bi bi-person-x"></i>`
+        : `<i class="bi bi-person-check"></i>`;
+      actionBtn.className = campaign.isApproved
+        ? "btn btn-outline-danger btn-sm me-1"
+        : "btn btn-outline-success btn-sm";
+
+      actionBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        try {
+          await Campaign.updateCampaign(campaign.id, {
+            isApproved: !campaign.isApproved,
+          });
+ 
+          fetchAndDisplayCampaigns();
+        } catch (error) {
+          console.error("Error updating campaign:", error);
+          alert("Failed to update campaign status");
+        }
       });
-    }); // end of actionBtn event listener
 
-    campaignActionsTd.appendChild(actionBtn);
+      campaignActionsTd.appendChild(actionBtn);
 
-    campaignRowTr.appendChild(campaignIdTd);
-    campaignRowTr.appendChild(campaignTitleTd);
-    campaignRowTr.appendChild(campaignDeadlineTd);
-    campaignRowTr.appendChild(campaignRaisedTd);
-    campaignRowTr.appendChild(campaignGoalTd);
-    campaignRowTr.appendChild(campaignCategory);
-    campaignRowTr.appendChild(campaignActionsTd);
+      campaignRowTr.appendChild(campaignCreatorTd);
+      campaignRowTr.appendChild(campaignTitleTd);
+      campaignRowTr.appendChild(campaignDeadlineTd);
+      campaignRowTr.appendChild(campaignRaisedTd);
+      campaignRowTr.appendChild(campaignGoalTd);
+      campaignRowTr.appendChild(campaignCategory);
+      campaignRowTr.appendChild(campaignActionsTd);
 
-    campaignsData.appendChild(campaignRowTr);
-  }); // end of campaigns.forEach
+      campaignsData.appendChild(campaignRowTr);
+    });
+  } catch (error) {
+    console.error("Error displaying campaigns:", error);
+    campaignsData.innerHTML = `<tr><td colspan="7">Error displaying campaigns: ${error.message}</td></tr>`;
+  }
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
-    const campaignsData = document.getElementById('campaignsTableData');
-    
-    if (!campaignsData) {
-        console.error('Campaigns table not found!');
-        return;
-    }
-
-    async function fetchAndDisplayCampaigns() {
-        allCampaigns = await Campaign.getAllCampaigns();
-        displayCampaigns(allCampaigns);
-    }
-
-    await fetchAndDisplayCampaigns();
-});
-
- async function fetchAndDisplayUsers() {
+async function fetchAndDisplayUsers() {
   try {
     allUsers = await User.getAllUsers();
     displayUsers(allUsers);
@@ -135,4 +145,35 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 }
 
-window.addEventListener("DOMContentLoaded", fetchAndDisplayUsers);
+async function fetchAndDisplayCampaigns() {
+  try {
+    allCampaigns = await Campaign.getAllCampaigns();
+    displayCampaigns(allCampaigns);
+  } catch (error) {
+    console.error("Error fetching campaigns:", error);
+    const campaignsData = document.getElementById("campaignsTableBody");
+    if (campaignsData) {
+      campaignsData.innerHTML = `<tr><td colspan="7">Error fetching campaigns: ${error.message}</td></tr>`;
+    }
+  }
+}
+
+async function loadCampaignsTable() {
+  try {
+    const response = await fetch('./components/dashboardTable.html');
+    if (!response.ok) throw new Error(`Failed to load campaigns table: ${response.status}`);
+    const tableContent = await response.text();
+    document.getElementById("campaignsTabelContent").innerHTML = tableContent;
+    
+
+    await fetchAndDisplayCampaigns();
+  } catch (error) {
+    console.error("Error loading campaigns table:", error);
+    document.getElementById("campaignsTabelContent").innerHTML = `<div class="alert alert-danger">Failed to load campaigns table: ${error.message}</div>`;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadCampaignsTable();
+  await fetchAndDisplayUsers();
+});
