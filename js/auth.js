@@ -3,10 +3,6 @@ import { User } from "./apiCalls.js";
 export function registerAccount() {
   const signupForm = document.getElementById("signupForm");
 
-  if (!signupForm) {
-    console.error("Signup form not found");
-    return;
-  }
   if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -37,6 +33,11 @@ export function registerAccount() {
         errorMessage.className = "error-message";
         return;
       } else if (regexPhoneNum.test(phoneNumber) === false) {
+        if(phoneNumber.length > 0 || phoneNumber.length <= 8) {
+          errorMessage.textContent = "Invalid phone number";
+          errorMessage.className = "error-message";
+          return;
+        }
         errorMessage.textContent = "Invalid phone number";
         errorMessage.className = "error-message";
         return;
