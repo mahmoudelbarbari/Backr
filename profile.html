@@ -49,14 +49,11 @@
                                 </div>
                                 <form>
                                     <div class="row mb-3">
-                                        <div class="col-md-6">
-                                            <label class="form-label">First Name</label>
+                                        <div class="col-md-12">
+                                            <label class="form-label">Full Name</label>
                                             <input type="text" class="form-control" value="John">
                                         </div>
-                                        <div class="col-md-6">
-                                            <label class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" value="Doe">
-                                        </div>
+                                        
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
@@ -107,36 +104,36 @@
                                             </div>
                                             <div>
                                                 <h5 class="mb-1">Account Role</h5>
-                                                <p class="mb-0 text-muted">Regular Backer</p>
-                                                <small class="text-muted">You can pledge to campaigns and track your contributions</small>
+                                                <p class="mb-0 text-muted " id="accountRole"> Backer</p>
+                                                <small class="text-muted" id="accountRoleDescription">You can pledge to campaigns and track your contributions</small>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="mb-5">
+                                <div class="mb-5" id="noneBacker">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h5 class="mb-0">My Campaigns</h5>
                                         <div>
-                                            <button class="btn btn-dark-custom me-2">
+                                            <button class="btn btn-dark-custom me-2" onclick="window.location.href='./campaignerDashboard.html'" id="createCampaignBtn">
                                                 <i class="bi bi-plus-circle me-2"></i>Create Campaign
                                             </button>
-                                            <button class="btn btn-outline-dark-custom">
-                                                <i class="bi bi-person-badge me-2"></i>Become Creator
+                                            <button class="btn btn-outline-dark-custom" onclick="window.location.href='./adminDashboard.html'" id="adminDashboardBtn">
+                                                <i class="bi bi-person-badge me-2"></i>Admin Dashboard
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="empty-state text-center p-4 bg-light rounded">
+                                    <div class="empty-state text-center p-4 bg-light rounded" id="profileCampaigns">
                                         <i class="bi bi-rocket-takeoff fs-1 text-muted mb-3"></i>
                                         <h6>No Campaigns Yet</h6>
-                                        <p class="text-muted mb-0">Start your crowdfunding journey by creating a campaign or applying to become a creator.</p>
+                                        <p class="text-muted mb-0">Start your Backr journey by creating a campaign.</p>
                                     </div>
                                 </div>
 
-                                <div>
+                                <div id="myPledges">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h5 class="mb-0">My Pledges</h5>
-                                        <button class="btn btn-outline-dark-custom">
+                                        <button class="btn btn-outline-dark-custom" onclick="window.location.href='../components/explore.html#cardContainer'" id="browseCampaignsBtn">
                                             <i class="bi bi-search me-2"></i>Browse Campaigns
                                         </button>
                                     </div>
