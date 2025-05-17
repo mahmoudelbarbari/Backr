@@ -73,4 +73,6 @@ display:none !important;
   color: #000 !important;
   background-color: #fff !important;
 }
-
+.navbar-toggler{
+      background-color: #ffffff54 !important;
+}
