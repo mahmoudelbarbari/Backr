@@ -25,6 +25,9 @@ window.addEventListener('scroll', addScrolledClass);
             const accountRoleDescription = document.getElementById('accountRoleDescription')
             const noneBacker = document.getElementById('noneBacker')
             const myPledges = document.getElementById('myPledges')
+            const userFname = document.getElementById('userFName')
+            const userEmail = document.getElementById('userEmail')
+
             if (user.role === 'campaigner') {
                 createCampaign.style.display = 'block';
                 accountRole.textContent = 'Campaigner';
@@ -44,11 +47,14 @@ window.addEventListener('scroll', addScrolledClass);
                 document.getElementById('profileCampaigns').style.display = 'none';
                 myPledges.style.display = 'block';
             }
+            userFname.value = `${user.name}`
+            userEmail.value = `${user.email}`
         }
     } catch (error) {
         console.error('Error in checkUser:', error);
         window.location.href = './unauthorized.html';
     }
 }
+
 
 window.addEventListener('load', checkUser);
