@@ -58,11 +58,18 @@ display:none !important;
 #Profilebtn:hover{
   color: #000 !important;
 }
+#logoutBtn:hover{
+  color: #000 !important;
+}
 .navbar--scrolled #signBtn:hover{
   color: rgb(0, 0, 0) !important;
   background-color: #fff !important;
 }
 .navbar--scrolled #Profilebtn:hover{
+  color: #000 !important;
+  background-color: #fff !important;
+}
+.navbar--scrolled #logoutBtn:hover{
   color: #000 !important;
   background-color: #fff !important;
 }

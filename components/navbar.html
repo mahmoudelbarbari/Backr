@@ -18,9 +18,11 @@
           <button class="btn btn-outline-light" type="submit">Go</button>
         </form>
       </div>
-      <div class="backr-navbar__actions">
+      <div class="backr-navbar__actions d-flex gap-3">
         <button class="btn btn-outline-light backr-navbar__login text-white" id="signBtn">Log In</button>
+        
         <button class="btn btn-outline-light backr-navbar__profile text-white"  onclick="window.location.href='../profile.html'" id="Profilebtn">Profile</button>
+        <button class="btn btn-outline-light backr-navbar__logout text-white" id="logoutBtn" onclick="sessionStorage.removeItem('user'); window.location.href='../index.html'"><i class="bi bi-box-arrow-right"></i></button>
       </div>
           
     </div>

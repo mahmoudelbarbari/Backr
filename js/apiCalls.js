@@ -21,8 +21,13 @@ export class User {
     return await res.json();
   }
 
+
+
+
+
+  
   static async registerUser(userData) {
-    // First check if user exists
+
     const checkUser = await fetch(`${BASE_URL}/users?email=${userData.email}`);
     const existingUsers = await checkUser.json();
     
@@ -37,6 +42,10 @@ export class User {
     });
     return await res.json();
   }
+
+
+
+
   static async loginUser(userData) {
     try{
       const res = await fetch(`${BASE_URL}/users?email=${userData.email}`);

@@ -44,16 +44,18 @@ async function loadNavbar() {
 async function checkLogin() {
     try {
         const user = JSON.parse(sessionStorage.getItem("user"));
+        const profileBtn = document.getElementById("Profilebtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loginBtn = document.getElementById("signBtn");
         if (user) {
             console.log(user);
-            const profileBtn = document.getElementById("Profilebtn");
-            const loginBtn = document.getElementById("signBtn");
+
             profileBtn.style.display = "block";
+            logoutBtn.style.display = "block";
             loginBtn.style.display = "none";    
         } else {
-            const profileBtn = document.getElementById("Profilebtn");
-            const loginBtn = document.getElementById("signBtn");
             profileBtn.style.display = "none";
+            logoutBtn.style.display = "none";
             loginBtn.style.display = "block";
         }
 

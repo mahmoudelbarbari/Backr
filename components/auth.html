@@ -93,11 +93,21 @@
                     <input type="password" class="form-control rounded-3 auth-modal__input" id="signupConfirmPassword"
                       placeholder="Confirm Password" />
                   </div>
+                  <div class="mb-3 auth-modal__form-group d-flex justify-content-around align-items-center">
+                    <div>
+                      <input type="radio" name="userType" id="userType" value="Backer" checked>
+                      <label for="userType">Backer</label>
+                    </div>
+                    <div>
+                      <input type="radio" name="userType" id="userType" value="Campaigner" >
+                      <label for="userType">Campaigner</label>
+                    </div>
+                  </div>
                   <button type="submit" class="btn w-100 mb-2 rounded-3 fw-bold auth-modal__button">
                     Sign Up
                   </button>
                 </form>
-                <div id="message ms-5"></div>
+                <div id="message" class="ms-5"></div>
                 
               </div>
             </div>

@@ -1,0 +1,61 @@
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+}
+.unauthorized-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.unauthorized-box {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+.unauthorized-icon {
+    font-size: 64px;
+    color: #dc3545;
+    margin-bottom: 20px;
+}
+.unauthorized-title {
+    font-size: 24px;
+    color: #212529;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.unauthorized-message {
+    color: #6c757d;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+.btn-dark-custom {
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
+    padding: 10px 25px;
+    font-weight: 600;
+}
+.btn-dark-custom:hover {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+}
+.btn-outline-dark-custom {
+    color: #212529;
+    border-color: #212529;
+    padding: 10px 25px;
+    font-weight: 600;
+}
+.btn-outline-dark-custom:hover {
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
+}
