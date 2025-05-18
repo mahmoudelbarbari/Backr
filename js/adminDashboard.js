@@ -116,8 +116,26 @@ console.log(creatorName);
           alert("Failed to update campaign status");
         }
       });
+      const deleteBtn = document.createElement('button');
+    deleteBtn.type = 'button';
+    deleteBtn.innerHTML = `<i class="bi bi-trash"></i> `;
+      
+      deleteBtn.className = 'btn btn-outline-danger btn-sm me-1';
+     
+      deleteBtn.addEventListener('click', async (e) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        try{
+     
+          await Campaign.deleteCampaign(campaign.id);
+          displayCampaigns(campaigns);
+        }catch (error) {  
+          console.error('Error deleting campaign:', error);
+        }
+      })
 
       campaignActionsTd.appendChild(actionBtn);
+      campaignActionsTd.appendChild(deleteBtn);
 
       campaignRowTr.appendChild(campaignCreatorTd);
       campaignRowTr.appendChild(campaignTitleTd);
