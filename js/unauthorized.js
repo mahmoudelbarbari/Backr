@@ -1,4 +1,4 @@
-const user = JSON.parse(sessionStorage.getItem("user"));
+const user = JSON.parse(localStorage.getItem("user"));
 if (user) {
     document.title = "Unauthorized Access";
   document.querySelector(".unauthorized-title").innerHTML = "Unauthorized Access";

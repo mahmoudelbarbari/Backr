@@ -6,7 +6,7 @@ import { checkUser } from './main.js';
   window.addEventListener('DOMContentLoaded',checkUser);
    export async function checkCampaigner() {
     try {
-      const user = JSON.parse(sessionStorage.getItem('user'));
+      const user = JSON.parse(localStorage.getItem('user'));
       if (user.role !== 'campaigner'|| user.isApproved === false) {
         window.location.href = './unauthorized.html';
         throw new Error('User not authorized');
@@ -46,7 +46,7 @@ async function loadCampaignerNavBar() {
   }
 }
 async function getCampaignsByUser() {
-  const currentUser = JSON.parse(sessionStorage.getItem('user'));
+  const currentUser = JSON.parse(localStorage.getItem('user'));
   const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
   return campaigns;
 } 

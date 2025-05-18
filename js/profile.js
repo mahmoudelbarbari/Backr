@@ -12,12 +12,12 @@ window.addEventListener('scroll', addScrolledClass);
 
   async function checkUser() {
     try {
-    if(sessionStorage.getItem('user') === null){
+    if(localStorage.getItem('user') === null){
         window.location.href = './unauthorized.html';
         throw new Error('User not found');
     }
 
-        const user = JSON.parse(sessionStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
             const createCampaign = document.getElementById('createCampaignBtn')
             const adminDashboardBtn = document.getElementById('adminDashboardBtn')

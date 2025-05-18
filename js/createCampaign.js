@@ -9,7 +9,7 @@ export function createCampaign() {
     }
     createCampaignForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const currentUser = JSON.parse(sessionStorage.getItem('user'));
+        const currentUser = JSON.parse(localStorage.getItem('user'));
         if (!currentUser) {
             console.error('No user logged in');
             window.location.href = 'unauthorized.html';

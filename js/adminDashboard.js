@@ -5,7 +5,7 @@ import { checkUser } from './main.js';
   window.addEventListener('DOMContentLoaded',checkUser);
 async function checkAdmin() {
   try {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user.role !== "admin") {
       window.location.href = "./unauthorized.html";
       throw new Error("User not authorized");

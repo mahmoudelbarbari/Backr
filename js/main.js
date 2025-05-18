@@ -43,7 +43,7 @@ async function loadNavbar() {
 }
  async function checkLogin() {
     try {
-        const user = JSON.parse(sessionStorage.getItem("user"));
+        const user = JSON.parse(localStorage.getItem("user"));
         const profileBtn = document.getElementById("Profilebtn");
         const logoutBtn = document.getElementById("logoutBtn");
         const loginBtn = document.getElementById("signBtn");
@@ -68,7 +68,7 @@ async function loadNavbar() {
 }
   export async function checkUser() {
     try {
-    if(sessionStorage.getItem('user') === null){
+    if(localStorage.getItem('user') === null){
         window.location.href = './unauthorized.html';
         throw new Error('User not found');}
       }

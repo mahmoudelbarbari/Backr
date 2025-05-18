@@ -111,7 +111,7 @@ export function loginAccount() {
       if (res.id && res.isActive === true) {
         errorMessage.textContent = "";
         errorMessage.className = "";
-        sessionStorage.setItem("user", JSON.stringify(res));
+        localStorage.setItem("user", JSON.stringify(res));
 
       }else if (res.isActive === false) {
           errorMessage.textContent = "Your account is banned";

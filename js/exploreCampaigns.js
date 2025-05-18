@@ -1,0 +1,42 @@
+ import { User,Campaign } from "../js/apiCalls.js";
+import { checkUser } from "../js/main.js";
+ export async function renderApprovedCampaigns() {
+    const rowContainer = document.getElementById('rowContainer');
+    
+    if (!rowContainer) {
+        console.error('row container not found');
+        return;
+    }
+    const ApprovedCampaigns = await Campaign.getApprovedCampaigns();
+    if (!ApprovedCampaigns || ApprovedCampaigns.length === 0) {
+        rowContainer.innerHTML = '<p>No approved campaigns available.</p>';
+        return;
+    }
+    rowContainer.innerHTML = ''; 
+  
+
+    ApprovedCampaigns.forEach(campaign => {
+        const cardBody = document.createElement('div');
+        cardBody.className = 'col-12 col-sm-6 col-lg-4 d-flex justify-content-center';
+
+       
+        const progress = campaign.goal > 0 ? Math.min(100, Math.round((campaign.raised / campaign.goal) * 100)) : 0;
+
+        cardBody.innerHTML = `
+            <div class="card campaign-card">
+                <img src="../assets/images/Rectangle 1.png" alt="science" />
+                <div class="card-body p-0">
+                    <h5 class="card-title fw-bold text-dark">${campaign.title}</h5>
+                    <p class="card-text text-dark"><strong>Raised :</strong> $${campaign.raised}</p>
+                    <p class="card-text text-dark"><strong>Goal :</strong> $${campaign.goal}</p>
+                    <p class="card-text text-dark"><strong>Deadline :</strong> ${campaign.deadline}</p>
+                    <a href="#" class="arrow"><i class="bi bi-arrow-right"></i></a>
+                    <progress class="progress" max="100" value="${progress}"></progress>
+                </div>
+            </div>
+        `;
+   
+        rowContainer.appendChild(cardBody);
+    });
+}
+window.addEventListener('DOMContentLoaded', renderApprovedCampaigns);
