@@ -1,6 +1,6 @@
 body{
-background: #283E4A !important;
-background: radial-gradient(circle, rgba(40, 62, 74, 1) 45%, rgba(0, 0, 0, 1) 89%) !important;
+background: #ffffff !important;
+/* background: radial-gradient(circle, rgba(40, 62, 74, 1) 45%, rgba(0, 0, 0, 1) 89%) !important; */
  
 }
 .hero-section {
@@ -21,7 +21,7 @@ background: radial-gradient(circle, rgba(40, 62, 74, 1) 45%, rgba(0, 0, 0, 1) 89
 
 }
 .about-section__overlay {
-  background: rgba(0,0,0,0.55);
+background: rgb(0 0 0 / 21%);
   z-index: 1;
 }
 .about-section__content {

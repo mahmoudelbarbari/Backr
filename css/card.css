@@ -12,7 +12,7 @@
   /* background: url(../assets/images/2.avif); */
   /* background-size: cover;
   background-repeat: no-repeat; */
-  border: 1px solid #fff !important;
+  /* border: 1px solid #000000 !important; */
   background-color: transparent !important;
   border-radius: 10px;
 }
@@ -46,17 +46,12 @@
 }
 
 .progress::-webkit-progress-value {
-  background: #2a7b9b;
-  background: linear-gradient(
-    90deg,
-    rgba(42, 123, 155, 1) 0%,
-    rgba(87, 199, 133, 1) 50%,
-    rgb(255, 207, 207) 100%
-  );
+  background: #000000;
+
 }
 
 .progress::-webkit-progress-bar {
-  background-color: #7f858c;
+  background-color: #e9ecef;
 }
 
 .card-body {
