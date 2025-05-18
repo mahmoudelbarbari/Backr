@@ -1,4 +1,25 @@
 import { User, Campaign } from "./apiCalls.js";
+import { checkUser } from './main.js';
+
+
+  window.addEventListener('DOMContentLoaded',checkUser);
+async function checkAdmin() {
+  try {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user.role !== "admin") {
+      window.location.href = "./unauthorized.html";
+      throw new Error("User not authorized");
+    }
+  }
+  catch (error) {
+    console.error("Error checking user role:", error);
+  }
+}
+window.addEventListener("DOMContentLoaded", checkAdmin);
+
+
+
+
 
 const userData = document.getElementById("usersTableData");
 let allUsers = [];
@@ -13,13 +34,15 @@ const displayUsers = (users) => {
     const userEmailTd = document.createElement("td");
     const userRoleTd = document.createElement("td");
     const userStatusTd = document.createElement("td");
+    const ApprovedCampaignerTd = document.createElement("td");
     const userActionsTd = document.createElement("td");
 
     userIdTd.textContent = user.id;
     userNameTd.textContent = user.name;
     userEmailTd.textContent = user.email;
     userRoleTd.textContent = user.role;
-    userStatusTd.textContent = user.isActive ? "Active" : "Inactive";
+    userStatusTd.textContent = user.isActive ? "Active" : "Banned";
+    ApprovedCampaignerTd.textContent = user.isApproved ? "Approved" : "Pending";
 
     const actionBtn = document.createElement("button");
     actionBtn.type = "button";
@@ -29,11 +52,11 @@ const displayUsers = (users) => {
         "btn btn-outline-secondary btn-sm me-1 btn--disabled";
     } else {
       actionBtn.innerHTML = user.isActive
-        ? `<i class="bi bi-person-x"></i>`
-        : `<i class="bi bi-person-check"></i>`;
+        ? `Ban <i class="bi bi-person-x"></i>`
+        : `Unban <i class="bi bi-person-check"></i>`;
       actionBtn.className = user.isActive
-        ? "btn btn-outline-danger btn-sm me-1"
-        : "btn btn-outline-success btn-sm";
+        ? "w-25 btn btn-outline-danger btn-sm me-1"
+        : "w-25 btn btn-outline-success btn-sm me-1";
 
       actionBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -42,13 +65,30 @@ const displayUsers = (users) => {
         await User.updateUser(user.id, { isActive: !user.isActive });
       });
     }
+    const ApproveBtn = document.createElement("button");
+    ApproveBtn.type = "button";
+    ApproveBtn.innerHTML = user.isApproved
+      ? `Decline Campaigner <i class="bi bi-calendar-x"></i>`
+      : `Approve Campaigner <i class="bi bi-calendar2-check"></i>`;
+    ApproveBtn.className = user.isApproved
+      ? " w-50 btn btn-outline-danger btn-sm me-1"
+      : " w-50 btn btn-outline-success btn-sm me-1";
+    ApproveBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      await User.updateUser(user.id, { isApproved: !user.isApproved });
+    }
+    );
     userActionsTd.appendChild(actionBtn);
+    userActionsTd.appendChild(ApproveBtn);
 
     userRowTr.appendChild(userIdTd);
     userRowTr.appendChild(userNameTd);
     userRowTr.appendChild(userEmailTd);
     userRowTr.appendChild(userRoleTd);
     userRowTr.appendChild(userStatusTd);
+    userRowTr.appendChild(ApprovedCampaignerTd);
     userRowTr.appendChild(userActionsTd);
 
     userData.appendChild(userRowTr);
@@ -71,7 +111,7 @@ const displayCampaigns = (campaigns) => {
       const campaignDeadlineTd = document.createElement("td");
       const campaignRaisedTd = document.createElement("td");
       const campaignGoalTd = document.createElement("td");
-      const campaignCategory = document.createElement("td");
+      const campaignStatusTd = document.createElement("td");
       const campaignActionsTd = document.createElement("td");
 
   const creatorName = await User.getUsersById(campaign.creatorId); 
@@ -90,16 +130,21 @@ console.log(creatorName);
       
       campaignRaisedTd.textContent = `$${raisedAmount.toFixed(2)}`;
       campaignGoalTd.textContent = `$${goalAmount.toFixed(2)}`;
-      campaignCategory.textContent = campaign.category;
+      campaignStatusTd.textContent = campaign.isApproved
+        ? "Approved"
+        : "Pending";
+      campaignStatusTd.className = campaign.isApproved  
+        ? "text-success"
+        : "text-warning ";
 
       const actionBtn = document.createElement("button");
       actionBtn.type = "button";
       actionBtn.innerHTML = campaign.isApproved
-        ? `<i class="bi bi-person-x"></i>`
-        : `<i class="bi bi-person-check"></i>`;
+        ? `Decline <i class="bi bi-person-x"></i>`
+        : `Accept <i class="bi bi-person-check"></i>`;
       actionBtn.className = campaign.isApproved
         ? "btn btn-outline-danger btn-sm me-1"
-        : "btn btn-outline-success btn-sm";
+        : "btn btn-outline-success btn-sm me-1";
 
       actionBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -118,7 +163,7 @@ console.log(creatorName);
       });
       const deleteBtn = document.createElement('button');
     deleteBtn.type = 'button';
-    deleteBtn.innerHTML = `<i class="bi bi-trash"></i> `;
+    deleteBtn.innerHTML = `Delete<i class="bi bi-trash"></i> `;
       
       deleteBtn.className = 'btn btn-outline-danger btn-sm me-1';
      
@@ -128,7 +173,7 @@ console.log(creatorName);
         try{
      
           await Campaign.deleteCampaign(campaign.id);
-          displayCampaigns(campaigns);
+           fetchAndDisplayCampaigns();
         }catch (error) {  
           console.error('Error deleting campaign:', error);
         }
@@ -142,7 +187,7 @@ console.log(creatorName);
       campaignRowTr.appendChild(campaignDeadlineTd);
       campaignRowTr.appendChild(campaignRaisedTd);
       campaignRowTr.appendChild(campaignGoalTd);
-      campaignRowTr.appendChild(campaignCategory);
+      campaignRowTr.appendChild(campaignStatusTd);
       campaignRowTr.appendChild(campaignActionsTd);
 
       campaignsData.appendChild(campaignRowTr);

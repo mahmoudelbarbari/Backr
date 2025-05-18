@@ -108,11 +108,18 @@ export function loginAccount() {
       };
 
       const res = await User.loginUser(loginData);
-      if (res.id) {
+      if (res.id && res.isActive === true) {
         errorMessage.textContent = "";
         errorMessage.className = "";
         sessionStorage.setItem("user", JSON.stringify(res));
-      }
+
+      }else if (res.isActive === false) {
+          errorMessage.textContent = "Your account is banned";
+          errorMessage.className = "error-message";
+          return;
+        }
+    
+      
       
       if (res.role === "admin") {
         window.location.href = "../adminDashboard.html";

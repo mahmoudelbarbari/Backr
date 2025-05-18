@@ -41,7 +41,7 @@ async function loadNavbar() {
         console.error('Error loading navbar:', error);
     }
 }
-async function checkLogin() {
+ async function checkLogin() {
     try {
         const user = JSON.parse(sessionStorage.getItem("user"));
         const profileBtn = document.getElementById("Profilebtn");
@@ -60,11 +60,22 @@ async function checkLogin() {
         }
 
 
+
         
     } catch (e) {
         console.error(`Error in checkLogin: ${e}`);
     }
 }
+  export async function checkUser() {
+    try {
+    if(sessionStorage.getItem('user') === null){
+        window.location.href = './unauthorized.html';
+        throw new Error('User not found');}
+      }
+    catch (error) {
+        console.error('Error checking user:', error);
+    }
+  }
 
 async function loadFooter() {
     try {

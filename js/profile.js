@@ -57,4 +57,4 @@ window.addEventListener('scroll', addScrolledClass);
 }
 
 
-window.addEventListener('load', checkUser);
+window.addEventListener('DOMContentLoaded', checkUser);

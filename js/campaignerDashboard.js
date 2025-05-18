@@ -1,6 +1,23 @@
 import { createCampaign } from './createCampaign.js';
 import { Campaign } from './apiCalls.js'; 
+import { checkUser } from './main.js';
 
+
+  window.addEventListener('DOMContentLoaded',checkUser);
+   export async function checkCampaigner() {
+    try {
+      const user = JSON.parse(sessionStorage.getItem('user'));
+      if (user.role !== 'campaigner'|| user.isApproved === false) {
+        window.location.href = './unauthorized.html';
+        throw new Error('User not authorized');
+      }
+    } catch (error) {
+      console.error('Error checking user role:', error);
+    }
+  }
+
+ window.addEventListener('DOMContentLoaded',checkCampaigner);
+  
 function setupCreateCampaignModal() {
   const createBtn = document.getElementById('createCampaignBtn');
   if (createBtn) {
@@ -20,6 +37,7 @@ function setupCreateCampaignModal() {
 async function loadCampaignerNavBar() {
   try {
     const response = await fetch('./components/campaignerNavBar.html');
+    // checkCampaigner();
     if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
     const dashboardNavBarContent = await response.text();
     document.getElementById('dashboard-nav-bar').innerHTML = dashboardNavBarContent;
