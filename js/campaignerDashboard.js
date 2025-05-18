@@ -41,22 +41,38 @@ async function displayCampaigns(campaigns) {
   campaignerDashboardTable.innerHTML = '';
   campaigns.forEach(campaign => {
     const row = document.createElement('tr');
+
     row.innerHTML = `
       <td class="text-wrap">${campaign.title}</td>
       <td class="d-none d-md-table-cell">${new Date(campaign.deadline).toLocaleDateString()}</td>
-      <td>$${campaign.raised.toFixed(2)}</td>
-      <td class="d-none d-lg-table-cell">$${campaign.goal.toFixed(2)}</td>
+      <td>$${campaign.raised}</td>
+      <td class="d-none d-lg-table-cell">$${campaign.goal}</td>
       <td class="d-none d-md-table-cell">${campaign.contributors || 0}</td>
       <td><span class="badge text-muted border ${campaign.isApproved ? 'border-success' : 'border-warning'}">${campaign.isApproved ? 'Active' : 'Pending'}</span></td>
-      <td class="text-center">
-        <div class="btn-group">
-          <button class="btn btn-sm btn-outline-success"><i class="bi bi-eye"></i></button>
-          <button class="btn btn-sm btn-outline-primary" onclick="editCampaign(${campaign.id})"><i class="bi bi-pencil"></i></button>
-          <button class="btn btn-sm btn-outline-danger" onclick="deleteCampaign(${campaign.id})"><i class="bi bi-trash"></i></button>
-        </div>
+      <td class="text-center" id="CampaignActionbtns">
+        
       </td>
     `;
+    const actionBtn = document.createElement('button');
+    actionBtn.type = 'button';
+    actionBtn.innerHTML = `<i class="bi bi-trash"></i> `;
+      
+      actionBtn.className = 'btn btn-outline-danger btn-sm me-1';
+     
+      actionBtn.addEventListener('click', async (e) => { 
+        e.preventDefault();
+        e.stopPropagation();
+        try{
+     
+          await Campaign.deleteCampaign(campaign.id);
+          displayCampaigns(campaigns);
+        }catch (error) {  
+          console.error('Error deleting campaign:', error);
+        }
+      })
     campaignerDashboardTable.appendChild(row);
+    row.querySelector('#CampaignActionbtns').appendChild(actionBtn);
+    
   });
 }
 
@@ -74,7 +90,7 @@ async function loadCampaignerDashboardTable() {
     setupCreateCampaignModal();
     createCampaign();
     
-    // After the table structure is loaded, fetch and display campaigns
+
     const campaigns = await getCampaignsByUser();
     await displayCampaigns(campaigns);
   } catch (e) {

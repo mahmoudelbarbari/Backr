@@ -1,7 +1,7 @@
 export const BASE_URL = "http://localhost:3000";
 
 export class User {
-  constructor(id, name, email, password, role, isActive) {
+  constructor(id, name, email, password, role, isActive,isBanned) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -9,6 +9,7 @@ export class User {
     this.role = role;
     this.isActive = isActive;
     isActive = false;
+    this.isBanned = isBanned;
   }
 
   static async getAllUsers() {

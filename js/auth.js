@@ -119,7 +119,7 @@ export function loginAccount() {
       } else if (res.role === "campaigner") {
         window.location.href = "../campaignerDashboard.html";
       } else if (res.role === "backer") {
-        window.location.href = "../";
+        window.location.href = "../index.html";
       }
     } catch (err) {
       errorMessage.textContent = "Invalid email or password";

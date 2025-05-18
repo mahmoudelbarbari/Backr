@@ -23,7 +23,7 @@ export function createCampaign() {
         const campaignImage = document.getElementById('campaignImage');
         const campaignRewardsTitle = document.getElementById('campaignRewardsTitle');
         const campaignRewardsDescription = document.getElementById('campaignRewardsDescription');
-        const id =Date.now()
+        
 const creatorId = currentUser.id;
 
     const title = campaignTitle.value;
@@ -40,7 +40,6 @@ const creatorId = currentUser.id;
     ]
     try {
         const campaignData = {
-            id ,
     title,
     description,
     goal,
@@ -55,6 +54,7 @@ const creatorId = currentUser.id;
     const res = await Campaign.createCampaign(campaignData);
     if (res.id) {
         console.log('Campaign created successfully');
+        alert('Campaign created successfully');
     } else {
         console.error('Failed to create campaign');
     } 
