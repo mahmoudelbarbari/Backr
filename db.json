@@ -4,7 +4,7 @@
       "id": "1",
       "name": "Ahmed Selims",
       "email": "AhmedSelim@example.com",
-      "password": "fiora123",
+      "password": "Test12",
       "role": "admin",
       "isActive": true,
       "isApproved": true
