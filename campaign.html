@@ -33,31 +33,32 @@
                 <div class="col-lg-8">
                     <div class="campaign__image-holder">
                        
-                        <img src="./assets/images/login.jpg"  
+                        <img src="./assets/images/login.jpg" 
+                                id="campaignImage" 
                              alt="Campaign" 
                              class="campaign__image ">
                     </div>
-                    <h1 class="mb-3">Qahira auction for art</h1>
+                    <h1 class="mb-3" id="campaignTitle">Qahira auction for art</h1>
                     
 
                     <div class="campaign__progress">
                         <div class="d-flex justify-content-between mb-2">
-                            <h4 class="mb-0">$75,000 raised</h4>
-                            <span class="text-muted">of $100,000 goal</span>
+                            <h4 class="mb-0" id="campaignRaised">$75,000 raised</h4>
+                            <span class="text-muted" id="campaignGoal">of $100,000 goal</span>
                         </div>
                         <div class="campaign__progress-container mb-3">
-                            <progress class="campaign__progress-bar" value="75" max="100"></progress>
+                            <progress class="campaign__progress-bar" id="campaignProgress" value="75" max="100"></progress>
                         </div>
                         <div class="d-flex justify-content-between text-muted">
-                            <span><i class="bi bi-people-fill me-2"></i>1,234 backers</span>
-                            <span><i class="bi bi-clock-fill me-2"></i>2025/05/21</span>
+                            
+                            <span id="campaignDeadline"><i class="bi bi-clock-fill me-2"></i>2025/05/21</span>
                         </div>
                     </div>
 
 
                     <div class="campaign__about">
                         <h3>About this project</h3>
-                        <p>Our mission is to empower artists by giving them a platform to showcase and sell their work while building a community of art lovers who appreciate and support local talent.</p>
+                        <p id="campaignDescription">Our mission is to empower artists by giving them a platform to showcase and sell their work while building a community of art lovers who appreciate and support local talent.</p>
                     </div>
                 </div>
 
@@ -68,8 +69,8 @@
                             <div class="d-flex align-items-center mb-3">
                                 <img src="./assets/images/login.jpg" alt="Creator" class="campaign__creator-avatar">
                                 <div class="ms-3">
-                                    <h6 class="mb-1">Qahira Developments</h6>
-                                    <p class="text-muted mb-0">Based in Cairo, Egypt</p>
+                                    <h6 class="mb-1" id="campaignCreator">Qahira Developments</h6>
+                                    
                                 </div>
                             </div>
                             <button class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backProjectModal">
@@ -79,9 +80,9 @@
 
              
                         <div class="campaign__reward">
-                            <h6 class="mb-2">Free Painting - $50</h6>
-                            <p class="text-muted mb-2">Get exclusive painting from our auction</p>
-                            <small class="text-muted"><i class="bi bi-clock me-2"></i>2025/05/21</small>
+                            <h6 class="mb-2" id="campaignRewardTitle" >Free Painting - $50</h6>
+                            <p class="text-muted mb-2" id="campaignRewardDescription">Get exclusive painting from our auction</p>
+                            
                         </div>
                     </div>
                 </div>
@@ -132,7 +133,7 @@
                             <label class="form-label">Pledge Amount</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
-                                <input type="number" class="form-control payment-modal__amount" 
+                                <input type="number" class="form-control payment-modal__amount" id="pledgeAmount"
                                        value="50" min="50" required>
                             </div>
                             <small class="text-muted">Minimum pledge: $50</small>
@@ -158,7 +159,8 @@
     <div id="footerContainer"></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/main.js" type="module"></script>
-    <script src="./js/campaign.js"type="module"></script>
+    
+    <script src="./js/campaignPageDetails.js" type="module"></script>
 </body>
 
 </html> 
