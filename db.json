@@ -2,8 +2,8 @@
   "users": [
     {
       "id": "1",
-      "name": "Fiora",
-      "email": "fiora@example.com",
+      "name": "Ahmed Selims",
+      "email": "AhmedSelim@example.com",
       "password": "fiora123",
       "role": "admin",
       "isActive": true,
