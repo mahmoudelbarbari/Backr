@@ -49,8 +49,6 @@ async function loadNavbar() {
         const logoutBtn = document.getElementById("logoutBtn");
         const loginBtn = document.getElementById("signBtn");
         if (user) {
-            console.log(user);
-
             profileBtn.style.display = "block";
             logoutBtn.style.display = "block";
             loginBtn.style.display = "none";    
@@ -126,10 +124,6 @@ window.addEventListener('DOMContentLoaded', dashboardNavBar);
 window.addEventListener('DOMContentLoaded', campaignDashboardTable);
 
 window.addEventListener('DOMContentLoaded', loadFooter);
-
-window.addEventListener('DOMContentLoaded', () => {
-    handleCampaignSearch();
-});
 
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.backr-navbar');

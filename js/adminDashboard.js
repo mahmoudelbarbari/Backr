@@ -1,8 +1,6 @@
-import { User, Campaign } from "./apiCalls.js";
-import { checkUser } from './main.js';
+import { User, Campaign, Pledge } from "./apiCalls.js";
+import { checkUser } from "./main.js";
 
-
-  window.addEventListener('DOMContentLoaded',checkUser);
 async function checkAdmin() {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -10,16 +8,27 @@ async function checkAdmin() {
       window.location.href = "./unauthorized.html";
       throw new Error("User not authorized");
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error checking user role:", error);
   }
 }
-window.addEventListener("DOMContentLoaded", checkAdmin);
 
-
-
-
+function greetings() {
+  const greetingMessage = document.getElementById("greetingMessage");
+  const currentHour = new Date().getHours();
+  const userName = JSON.parse(localStorage.getItem("user"))?.name || "User";
+  let greeting = "Good Morning";
+  if (currentHour < 12) {
+    greeting = "Good Morning";
+  } else if (currentHour < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
+  }
+  if (greetingMessage) {
+    greetingMessage.textContent = `${greeting}, ${userName}`;
+  }
+}
 
 const userData = document.getElementById("usersTableData");
 let allUsers = [];
@@ -78,8 +87,7 @@ const displayUsers = (users) => {
       e.stopPropagation();
 
       await User.updateUser(user.id, { isApproved: !user.isApproved });
-    }
-    );
+    });
     userActionsTd.appendChild(actionBtn);
     userActionsTd.appendChild(ApproveBtn);
 
@@ -98,7 +106,7 @@ const displayUsers = (users) => {
 const displayCampaigns = (campaigns) => {
   const campaignsData = document.getElementById("campaignsTableBody");
   if (!campaignsData) {
-    console.error('Campaigns table not found!');
+    console.error("Campaigns table not found!");
     return;
   }
 
@@ -114,9 +122,7 @@ const displayCampaigns = (campaigns) => {
       const campaignStatusTd = document.createElement("td");
       const campaignActionsTd = document.createElement("td");
 
-  const creatorName = await User.getUsersById(campaign.creatorId); 
-console.log(creatorName);
-  
+      const creatorName = await User.getUsersById(campaign.creatorId);
 
       campaignCreatorTd.textContent = creatorName.name;
       campaignTitleTd.textContent = campaign.title;
@@ -124,16 +130,15 @@ console.log(creatorName);
         campaign.deadline
       ).toLocaleDateString();
 
-   
       const raisedAmount = parseFloat(campaign.raised) || 0;
       const goalAmount = parseFloat(campaign.goal) || 0;
-      
+
       campaignRaisedTd.textContent = `$${raisedAmount.toFixed(2)}`;
       campaignGoalTd.textContent = `$${goalAmount.toFixed(2)}`;
       campaignStatusTd.textContent = campaign.isApproved
         ? "Approved"
         : "Pending";
-      campaignStatusTd.className = campaign.isApproved  
+      campaignStatusTd.className = campaign.isApproved
         ? "text-success"
         : "text-warning ";
 
@@ -154,30 +159,29 @@ console.log(creatorName);
           await Campaign.updateCampaign(campaign.id, {
             isApproved: !campaign.isApproved,
           });
- 
+
           fetchAndDisplayCampaigns();
         } catch (error) {
           console.error("Error updating campaign:", error);
           alert("Failed to update campaign status");
         }
       });
-      const deleteBtn = document.createElement('button');
-    deleteBtn.type = 'button';
-    deleteBtn.innerHTML = `Delete<i class="bi bi-trash"></i> `;
-      
-      deleteBtn.className = 'btn btn-outline-danger btn-sm me-1';
-     
-      deleteBtn.addEventListener('click', async (e) => { 
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.innerHTML = `Delete<i class="bi bi-trash"></i> `;
+
+      deleteBtn.className = "btn btn-outline-danger btn-sm me-1";
+
+      deleteBtn.addEventListener("click", async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        try{
-     
+        try {
           await Campaign.deleteCampaign(campaign.id);
-           fetchAndDisplayCampaigns();
-        }catch (error) {  
-          console.error('Error deleting campaign:', error);
+          fetchAndDisplayCampaigns();
+        } catch (error) {
+          console.error("Error deleting campaign:", error);
         }
-      })
+      });
 
       campaignActionsTd.appendChild(actionBtn);
       campaignActionsTd.appendChild(deleteBtn);
@@ -223,20 +227,103 @@ async function fetchAndDisplayCampaigns() {
 
 async function loadCampaignsTable() {
   try {
-    const response = await fetch('./components/dashboardTable.html');
-    if (!response.ok) throw new Error(`Failed to load campaigns table: ${response.status}`);
+    const response = await fetch("./components/dashboardTable.html");
+    if (!response.ok)
+      throw new Error(`Failed to load campaigns table: ${response.status}`);
     const tableContent = await response.text();
     document.getElementById("campaignsTabelContent").innerHTML = tableContent;
-    
 
     await fetchAndDisplayCampaigns();
+    await fetchAndDisplayPledges();
   } catch (error) {
     console.error("Error loading campaigns table:", error);
-    document.getElementById("campaignsTabelContent").innerHTML = `<div class="alert alert-danger">Failed to load campaigns table: ${error.message}</div>`;
+    document.getElementById(
+      "campaignsTabelContent"
+    ).innerHTML = `<div class="alert alert-danger">Failed to load campaigns table: ${error.message}</div>`;
   }
 }
 
+const loadPledgesTable = async (pledges) => {
+  const pledgeTable = document.getElementById("pledgesTableData");
+  if (!pledgeTable) {
+    console.error("Pledge table not found!");
+    return;
+  }
+
+  pledgeTable.innerHTML = "";
+
+  for (const pledge of pledges) {
+    try {
+      const pledgeRowTr = document.createElement("tr");
+
+      const pledgeIdTd = document.createElement("td");
+      const userNameTd = document.createElement("td");
+      const campaignTitleTd = document.createElement("td");
+      const pledgeAmountTd = document.createElement("td");
+      const rewardIdTd = document.createElement("td");
+
+      // Safely get user data
+      let creatorName = "Unknown User";
+      try {
+        const user = await User.getUsersById(pledge.userId);
+        if (user && user.name) {
+          creatorName = user.name;
+        }
+      } catch (e) {
+        console.warn(`User not found for ID ${pledge.creatorId}`);
+      }
+
+      // Safely get campaign data
+      let campaignTitle = "Unknown Campaign";
+      try {
+        const campaign = await Campaign.getCampaignById(pledge.campaignId);
+        if (campaign && campaign.title) {
+          campaignTitle = campaign.title;
+        }
+      } catch (e) {
+        console.warn(`Campaign not found for ID ${pledge.campaignId}`);
+      }
+
+      // Populate cells
+      userNameTd.textContent = creatorName;
+      pledgeIdTd.textContent = pledge.id;
+      pledgeAmountTd.textContent = pledge.amount;
+      campaignTitleTd.textContent = campaignTitle;
+      rewardIdTd.textContent = pledge.rewardId;
+
+      // Append cells to row
+      pledgeRowTr.appendChild(pledgeIdTd);
+      pledgeRowTr.appendChild(userNameTd);
+      pledgeRowTr.appendChild(campaignTitleTd);
+      pledgeRowTr.appendChild(pledgeAmountTd);
+      pledgeRowTr.appendChild(rewardIdTd);
+
+      // Append row to table
+      pledgeTable.appendChild(pledgeRowTr);
+
+    } catch (error) {
+      console.error("Error processing pledge:", pledge, error);
+      // Optionally create a row with error info
+    }
+  }
+};
+
+
+async function fetchAndDisplayPledges() {
+  try {
+    const allPledges = await Pledge.getAllPledges();
+    await loadPledgesTable(allPledges);
+  } catch (error) {
+    console.error("Error fetching pledges:", error);
+  }
+}
+
+
 window.addEventListener("DOMContentLoaded", async () => {
+  checkUser(); // From main.js
+  checkAdmin();
+  greetings();
   await loadCampaignsTable();
   await fetchAndDisplayUsers();
+  await fetchAndDisplayPledges();
 });
