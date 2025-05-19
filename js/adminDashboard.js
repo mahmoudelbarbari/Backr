@@ -1,7 +1,6 @@
-import { User, Campaign } from "./apiCalls.js";
+import { User, Campaign, Pledge } from "./apiCalls.js";
 import { checkUser } from "./main.js";
 
-window.addEventListener("DOMContentLoaded", checkUser);
 async function checkAdmin() {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -19,17 +18,17 @@ function greetings() {
   const currentHour = new Date().getHours();
   const userName = JSON.parse(localStorage.getItem("user"))?.name || "User";
   let greeting = "Good Morning";
-  if (currentHour >= 12) {
-    greeting = "Good evening";
+  if (currentHour < 12) {
+    greeting = "Good Morning";
+  } else if (currentHour < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
   }
-
-  greetingMessage.textContent = `${greeting}, ${userName}`;
+  if (greetingMessage) {
+    greetingMessage.textContent = `${greeting}, ${userName}`;
+  }
 }
-
-window.addEventListener("DOMContentLoaded", () => {
-  checkAdmin();
-  greetings();
-});
 
 const userData = document.getElementById("usersTableData");
 let allUsers = [];
@@ -124,7 +123,6 @@ const displayCampaigns = (campaigns) => {
       const campaignActionsTd = document.createElement("td");
 
       const creatorName = await User.getUsersById(campaign.creatorId);
-      console.log(creatorName);
 
       campaignCreatorTd.textContent = creatorName.name;
       campaignTitleTd.textContent = campaign.title;
@@ -236,6 +234,7 @@ async function loadCampaignsTable() {
     document.getElementById("campaignsTabelContent").innerHTML = tableContent;
 
     await fetchAndDisplayCampaigns();
+    await fetchAndDisplayPledges();
   } catch (error) {
     console.error("Error loading campaigns table:", error);
     document.getElementById(
@@ -244,7 +243,87 @@ async function loadCampaignsTable() {
   }
 }
 
+const loadPledgesTable = async (pledges) => {
+  const pledgeTable = document.getElementById("pledgesTableData");
+  if (!pledgeTable) {
+    console.error("Pledge table not found!");
+    return;
+  }
+
+  pledgeTable.innerHTML = "";
+
+  for (const pledge of pledges) {
+    try {
+      const pledgeRowTr = document.createElement("tr");
+
+      const pledgeIdTd = document.createElement("td");
+      const userNameTd = document.createElement("td");
+      const campaignTitleTd = document.createElement("td");
+      const pledgeAmountTd = document.createElement("td");
+      const rewardIdTd = document.createElement("td");
+
+      // Safely get user data
+      let creatorName = "Unknown User";
+      try {
+        const user = await User.getUsersById(pledge.userId);
+        if (user && user.name) {
+          creatorName = user.name;
+        }
+      } catch (e) {
+        console.warn(`User not found for ID ${pledge.creatorId}`);
+      }
+
+      // Safely get campaign data
+      let campaignTitle = "Unknown Campaign";
+      try {
+        const campaign = await Campaign.getCampaignById(pledge.campaignId);
+        if (campaign && campaign.title) {
+          campaignTitle = campaign.title;
+        }
+      } catch (e) {
+        console.warn(`Campaign not found for ID ${pledge.campaignId}`);
+      }
+
+      // Populate cells
+      userNameTd.textContent = creatorName;
+      pledgeIdTd.textContent = pledge.id;
+      pledgeAmountTd.textContent = pledge.amount;
+      campaignTitleTd.textContent = campaignTitle;
+      rewardIdTd.textContent = pledge.rewardId;
+
+      // Append cells to row
+      pledgeRowTr.appendChild(pledgeIdTd);
+      pledgeRowTr.appendChild(userNameTd);
+      pledgeRowTr.appendChild(campaignTitleTd);
+      pledgeRowTr.appendChild(pledgeAmountTd);
+      pledgeRowTr.appendChild(rewardIdTd);
+
+      // Append row to table
+      pledgeTable.appendChild(pledgeRowTr);
+
+    } catch (error) {
+      console.error("Error processing pledge:", pledge, error);
+      // Optionally create a row with error info
+    }
+  }
+};
+
+
+async function fetchAndDisplayPledges() {
+  try {
+    const allPledges = await Pledge.getAllPledges();
+    await loadPledgesTable(allPledges);
+  } catch (error) {
+    console.error("Error fetching pledges:", error);
+  }
+}
+
+
 window.addEventListener("DOMContentLoaded", async () => {
+  checkUser(); // From main.js
+  checkAdmin();
+  greetings();
   await loadCampaignsTable();
   await fetchAndDisplayUsers();
+  await fetchAndDisplayPledges();
 });

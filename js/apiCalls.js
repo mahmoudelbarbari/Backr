@@ -197,6 +197,8 @@ export class Pledge extends User {
 
   static async getAllPledges() {
     const res = await fetch(`${BASE_URL}/pledges`);
+    console.log("Fetching pledges from:", res.url);
+    if (!res.ok) throw new Error(await res.text());
     return await res.json();
   }
 

@@ -20,11 +20,16 @@ function greetings() {
   const currentHour = new Date().getHours();
   const userName = JSON.parse(localStorage.getItem("user"))?.name || "User";
   let greeting = "Good Morning";
-  if (currentHour >= 12) {
-    greeting = "Good evening";
+  if (currentHour < 12) {
+    greeting = "Good Morning";
+  } else if (currentHour < 18) {
+    greeting = "Good Afternoon";
+  } else {
+    greeting = "Good Evening";
   }
-
-  greetingMessage.textContent = `${greeting}, ${userName}`;
+  if (greetingMessage) {
+    greetingMessage.textContent = `${greeting}, ${userName}`;
+  }
 }
 
 window.addEventListener("DOMContentLoaded", () => {

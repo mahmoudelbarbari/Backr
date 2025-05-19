@@ -31,7 +31,7 @@ export async function handleCampaignSearch() {
 
     if (searchTerm.length < 3) {
       resultsContainer.innerHTML = "";
-      resultsContainer.classList("show");
+      resultsContainer.classList.add("show");
     }
   }); // end of search input
 
