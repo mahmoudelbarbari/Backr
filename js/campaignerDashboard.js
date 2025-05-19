@@ -86,7 +86,7 @@ async function displayCampaigns(campaigns) {
       ).toLocaleDateString()}</td>
       <td>$${campaign.raised}</td>
       <td class="d-none d-lg-table-cell">$${campaign.goal}</td>
-      <td class="d-none d-md-table-cell">${campaign.contributors || 0}</td>
+
       <td><span class="badge text-muted border ${
         campaign.isApproved ? "border-success" : "border-warning"
       }">${campaign.isApproved ? "Active" : "Pending"}</span></td>
@@ -134,7 +134,7 @@ const loadPledgesTable = async (pledges) => {
       const pledgeAmountTd = document.createElement("td");
       const rewardIdTd = document.createElement("td");
 
-      // Safely get user data
+
       let creatorName = "Unknown User";
       try {
         const user = await Pledge.getUsersById(pledge.userId);
@@ -145,7 +145,7 @@ const loadPledgesTable = async (pledges) => {
         console.warn(`User not found for ID ${pledge.creatorId}`);
       }
 
-      // Safely get campaign data
+
       let campaignTitle = "Unknown Campaign";
       try {
         const campaign = await Campaign.getCampaignById(pledge.campaignId);
@@ -156,25 +156,24 @@ const loadPledgesTable = async (pledges) => {
         console.warn(`Campaign not found for ID ${pledge.campaignId}`);
       }
 
-      // Populate cells
       userNameTd.textContent = creatorName;
       pledgeIdTd.textContent = pledge.id;
       pledgeAmountTd.textContent = pledge.amount;
       campaignTitleTd.textContent = campaignTitle;
       rewardIdTd.textContent = pledge.rewardId;
 
-      // Append cells to row
+
       pledgeRowTr.appendChild(pledgeIdTd);
       pledgeRowTr.appendChild(userNameTd);
       pledgeRowTr.appendChild(campaignTitleTd);
       pledgeRowTr.appendChild(pledgeAmountTd);
       pledgeRowTr.appendChild(rewardIdTd);
 
-      // Append row to table
+
       pledgeTable.appendChild(pledgeRowTr);
     } catch (error) {
       console.error("Error processing pledge:", pledge, error);
-      // Optionally create a row with error info
+ 
     }
   }
 };
