@@ -120,6 +120,7 @@ const displayCampaigns = (campaigns) => {
       const campaignRaisedTd = document.createElement("td");
       const campaignGoalTd = document.createElement("td");
       const campaignStatusTd = document.createElement("td");
+      const campaignCategoryTd = document.createElement("td");
       const campaignActionsTd = document.createElement("td");
 
       const creatorName = await User.getUsersById(campaign.creatorId);
@@ -182,7 +183,7 @@ const displayCampaigns = (campaigns) => {
           console.error("Error deleting campaign:", error);
         }
       });
-
+      campaignCategoryTd.textContent = campaign.category.toUpperCase();
       campaignActionsTd.appendChild(actionBtn);
       campaignActionsTd.appendChild(deleteBtn);
 
@@ -192,6 +193,7 @@ const displayCampaigns = (campaigns) => {
       campaignRowTr.appendChild(campaignRaisedTd);
       campaignRowTr.appendChild(campaignGoalTd);
       campaignRowTr.appendChild(campaignStatusTd);
+      campaignRowTr.appendChild(campaignCategoryTd);
       campaignRowTr.appendChild(campaignActionsTd);
 
       campaignsData.appendChild(campaignRowTr);
