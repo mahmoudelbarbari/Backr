@@ -24,7 +24,8 @@ import { checkUser } from "../js/main.js";
 
         cardBody.innerHTML = `
             <div class="card campaign-card">
-                <img src="../assets/images/Rectangle 1.png" alt="science" />
+                <img src="${campaign.image}"  height="350" alt="${campaign.title}"   />
+
                 <div class="card-body p-0">
                     <h5 class="card-title fw-bold text-dark">${campaign.title}</h5>
                     <p class="card-text text-dark"><strong>Raised :</strong> $${campaign.raised}</p>

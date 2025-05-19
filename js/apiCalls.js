@@ -238,3 +238,12 @@ export class Pledge extends User {
     return await res.json();
   }
 }
+//==========img to base64
+ export async function imageToBase64(img) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = () => reject('File reading error');
+    reader.readAsDataURL(img);
+  });
+}
