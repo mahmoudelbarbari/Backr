@@ -3,6 +3,7 @@ import { Campaign,imageToBase64 } from './apiCalls.js';
 export function createCampaign() {
     const createCampaignForm = document.getElementById('createCampaignForm');
     const createCampaignBtn = document.getElementById('createCampaignBtn');
+
     if (!createCampaignForm) {
         console.error('Create campaign form not found');
         return;
@@ -21,6 +22,7 @@ export function createCampaign() {
         const campaignDeadline = document.getElementById('campaignDeadline');
         const campaignGoal = document.getElementById('campaignGoal');
         const campaignImage = document.getElementById('campaignImage');
+        const CampaignCategory = document.getElementById('campaignCategory');
         const campaignRewardsTitle = document.getElementById('campaignRewardsTitle');
         const campaignRewardsDescription = document.getElementById('campaignRewardsDescription');
         
@@ -32,6 +34,7 @@ const creatorId = currentUser.id;
     const goal = campaignGoal.value;
     const deadline = campaignDeadline.value;
     const image = campaignImage.files[0];
+    const category = CampaignCategory.value;
     const rewards = [
         {
             title: campaignRewardsTitle.value,
@@ -51,7 +54,7 @@ const creatorId = currentUser.id;
     image: imageBase64, 
     creatorId,
     isApproved: false,
-    category: 'other',
+    category ,
     rewards
   };
 
