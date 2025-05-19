@@ -1,4 +1,4 @@
-import { Campaign } from './apiCalls.js';
+import { Campaign,imageToBase64 } from './apiCalls.js';
 
 export function createCampaign() {
     const createCampaignForm = document.getElementById('createCampaignForm');
@@ -39,28 +39,34 @@ const creatorId = currentUser.id;
         }
     ]
     try {
-        const campaignData = {
+
+  const imageBase64 = await imageToBase64(image);
+
+  const campaignData = {
     title,
     description,
     goal,
     raised,
     deadline,
-    image,
+    image: imageBase64, 
     creatorId,
-    isApproved : false,
-    category : 'other',
+    isApproved: false,
+    category: 'other',
     rewards
-    }
-    const res = await Campaign.createCampaign(campaignData);
-    if (res.id) {
-        console.log('Campaign created successfully');
-        alert('Campaign created successfully');
-    } else {
-        console.error('Failed to create campaign');
-    } 
-    } catch (error) {
-        console.error('Error creating campaign:', error);
-    }   
+  };
+
+  const res = await Campaign.createCampaign(campaignData);
+
+  if (res.id) {
+    console.log('Campaign created successfully');
+    alert('Campaign created successfully');
+  } else {
+    console.error('Failed to create campaign');
+  }
+
+} catch (error) {
+  console.error('Error creating campaign:', error);
+}
    
 })
 }
