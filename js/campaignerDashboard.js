@@ -1,5 +1,5 @@
 import { createCampaign } from "./createCampaign.js";
-import { Campaign } from "./apiCalls.js";
+import { Campaign, Pledge } from "./apiCalls.js";
 import { checkUser } from "./main.js";
 
 window.addEventListener("DOMContentLoaded", checkUser);
@@ -31,12 +31,6 @@ function greetings() {
     greetingMessage.textContent = `${greeting}, ${userName}`;
   }
 }
-
-window.addEventListener("DOMContentLoaded", () => {
-  checkCampaigner();
-  greetings();
-});
-
 function setupCreateCampaignModal() {
   const createBtn = document.getElementById("createCampaignBtn");
   if (createBtn) {
@@ -67,6 +61,13 @@ async function getCampaignsByUser() {
   const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
   return campaigns;
 }
+
+async function getPledgesByUser() {
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+  const pledges = await Pledge.getPledgesByUser(currentUser.id);
+  return pledges;
+}
+
 async function displayCampaigns(campaigns) {
   const campaignerDashboardTable =
     document.getElementById("campaignsTableBody");
@@ -114,6 +115,70 @@ async function displayCampaigns(campaigns) {
   });
 }
 
+const loadPledgesTable = async (pledges) => {
+  const pledgeTable = document.getElementById("pledgesTableData");
+  if (!pledgeTable) {
+    console.error("Pledge table not found!");
+    return;
+  }
+
+  pledgeTable.innerHTML = "";
+
+  for (const pledge of pledges) {
+    try {
+      const pledgeRowTr = document.createElement("tr");
+
+      const pledgeIdTd = document.createElement("td");
+      const userNameTd = document.createElement("td");
+      const campaignTitleTd = document.createElement("td");
+      const pledgeAmountTd = document.createElement("td");
+      const rewardIdTd = document.createElement("td");
+
+      // Safely get user data
+      let creatorName = "Unknown User";
+      try {
+        const user = await Pledge.getUsersById(pledge.userId);
+        if (user && user.name) {
+          creatorName = user.name;
+        }
+      } catch (e) {
+        console.warn(`User not found for ID ${pledge.creatorId}`);
+      }
+
+      // Safely get campaign data
+      let campaignTitle = "Unknown Campaign";
+      try {
+        const campaign = await Campaign.getCampaignById(pledge.campaignId);
+        if (campaign && campaign.title) {
+          campaignTitle = campaign.title;
+        }
+      } catch (e) {
+        console.warn(`Campaign not found for ID ${pledge.campaignId}`);
+      }
+
+      // Populate cells
+      userNameTd.textContent = creatorName;
+      pledgeIdTd.textContent = pledge.id;
+      pledgeAmountTd.textContent = pledge.amount;
+      campaignTitleTd.textContent = campaignTitle;
+      rewardIdTd.textContent = pledge.rewardId;
+
+      // Append cells to row
+      pledgeRowTr.appendChild(pledgeIdTd);
+      pledgeRowTr.appendChild(userNameTd);
+      pledgeRowTr.appendChild(campaignTitleTd);
+      pledgeRowTr.appendChild(pledgeAmountTd);
+      pledgeRowTr.appendChild(rewardIdTd);
+
+      // Append row to table
+      pledgeTable.appendChild(pledgeRowTr);
+    } catch (error) {
+      console.error("Error processing pledge:", pledge, error);
+      // Optionally create a row with error info
+    }
+  }
+};
+
 async function loadCampaignerDashboardTable() {
   try {
     const response = await fetch("./components/campaignerDashboardTable.html");
@@ -136,5 +201,20 @@ async function loadCampaignerDashboardTable() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", loadCampaignerNavBar);
-window.addEventListener("DOMContentLoaded", loadCampaignerDashboardTable);
+async function fetchAndDisplayPledges() {
+  try {
+    const allPledges = await getPledgesByUser();
+    await loadPledgesTable(allPledges);
+    console.log(allPledges);
+  } catch (error) {
+    console.error("Error fetching pledges:", error);
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  loadCampaignerNavBar();
+  loadCampaignerDashboardTable();
+  checkCampaigner();
+  greetings();
+  await fetchAndDisplayPledges();
+});

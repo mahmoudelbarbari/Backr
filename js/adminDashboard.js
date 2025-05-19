@@ -262,7 +262,6 @@ const loadPledgesTable = async (pledges) => {
       const pledgeAmountTd = document.createElement("td");
       const rewardIdTd = document.createElement("td");
 
-      // Safely get user data
       let creatorName = "Unknown User";
       try {
         const user = await User.getUsersById(pledge.userId);
@@ -270,7 +269,7 @@ const loadPledgesTable = async (pledges) => {
           creatorName = user.name;
         }
       } catch (e) {
-        console.warn(`User not found for ID ${pledge.creatorId}`);
+        console.warn(`User not found for ID ${pledge.userId}`);
       }
 
       // Safely get campaign data
