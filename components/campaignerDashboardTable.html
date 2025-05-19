@@ -72,6 +72,16 @@
             <textarea class="form-control" id="campaignDescription" rows="3" required></textarea>
           </div>
           <div class="mb-3">
+            <label for="campaignCategory" class="form-label">Category</label>
+            <select class="form-select" id="campaignCategory" required>
+              <option value="" disabled selected>Select a category</option>
+              <option value="Art">Art</option>
+              <option value="Technology">Technology</option>
+              <option value="Health">Health</option>
+              <option value="Education">Education</option>
+            </select>
+          </div>
+          <div class="mb-3">
             <label class="form-label">Rewards</label>
             <div id="rewardsContainer">
               <div class="reward-item mb-2">

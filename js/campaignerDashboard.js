@@ -7,7 +7,7 @@ import { checkUser } from './main.js';
    export async function checkCampaigner() {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
-      if (user.role !== 'campaigner'|| user.isApproved === false) {
+      if (user.role === 'backer'|| user.isApproved === false ) {
         window.location.href = './unauthorized.html';
         throw new Error('User not authorized');
       }

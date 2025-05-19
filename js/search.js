@@ -4,7 +4,7 @@ export async function handleCampaignSearch() {
   const searchInput = document.getElementById("campaignSearchInput");
   const resultsContainer = document.getElementById("campaignsDropdown");
 
-  if (!searchInput || !resultsContainer) {
+    if (!searchInput || !resultsContainer) {
     console.error("Search elements not found");
     return;
   }
@@ -38,6 +38,7 @@ export async function handleCampaignSearch() {
       resultsContainer.classList("show");
     }
   }); // end of search input
+
 }
 
 function displayResults(campaigns) {

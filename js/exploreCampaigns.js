@@ -24,10 +24,11 @@ import { checkUser } from "../js/main.js";
 
         cardBody.innerHTML = `
             <div class="card campaign-card">
-                <img src="${campaign.image}"  height="350" alt="${campaign.title}"   />
+            <span class="badge bg-light w-50 opacity-100  position-absolute  text-dark">${campaign.category}</span>
+                <img src="${campaign.image}"   alt="${campaign.title}"   />
 
                 <div class="card-body p-0">
-                    <h5 class="card-title fw-bold text-dark">${campaign.title}</h5>
+                    <h5 class="card-title fw-bold text-dark">${campaign.title.toUpperCase()}</h5>
                     <p class="card-text text-dark"><strong>Raised :</strong> $${campaign.raised}</p>
                     <p class="card-text text-dark"><strong>Goal :</strong> $${campaign.goal}</p>
                     <p class="card-text text-dark"><strong>Deadline :</strong> ${campaign.deadline}</p>
