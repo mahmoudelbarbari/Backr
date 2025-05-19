@@ -3,7 +3,7 @@ import { checkUser } from "./main.js";
 
 async function renderCampaignDetails() {
     try {
-    const campaignId = localStorage.getItem("campaignId");
+    const campaignId = sessionStorage.getItem("campaignId");
     if (!campaignId) {
         console.error("Campaign ID not found in local storage");
         return;
@@ -53,14 +53,22 @@ async function renderCampaignDetails() {
              let raisedAmount = parseFloat(campaignDetails.raised) || 0;
             raisedAmount += parseFloat(pledge);
             handlePayment(e);
-            try { await Campaign.updateCampaign(campaignId, {
+            const currentUser = JSON.parse(localStorage.getItem('user'));
+            try { 
+                   
+                await Campaign.updateCampaign(campaignId, {
                 raised: raisedAmount
             });
             await Pledge.createPledge({
-                amount: pledge,
+
                 campaignId: campaignId,
-                userId: localStorage.getItem("user").id
+                userId: currentUser.id,
+                amount: pledge,
+                rewardId: campaignDetails.rewards[0].rewardId
+                
+                
             });
+
         } catch (error) {
                 console.error("Error processing payment:", error);
             }

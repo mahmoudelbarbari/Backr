@@ -128,7 +128,7 @@ async function campaignNavigator() {
         campaign.addEventListener('click', () => {
             const id = campaign.getAttribute('data-id');
             const campaignId = id;
-            localStorage.setItem('campaignId', campaignId);
+            sessionStorage.setItem('campaignId', campaignId);
             window.location.href = `../campaign.html `;
          
         });
