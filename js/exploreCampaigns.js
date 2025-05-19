@@ -23,7 +23,7 @@ import { checkUser } from "../js/main.js";
         const progress = campaign.goal > 0 ? Math.min(100, Math.round((campaign.raised / campaign.goal) * 100)) : 0;
 
         cardBody.innerHTML = `
-            <div class="card campaign-card">
+            <div class="card campaign-card" data-id="${campaign.id}">
             <span class="badge bg-light w-50 opacity-100  position-absolute  text-dark">${campaign.category}</span>
                 <img src="${campaign.image}"   alt="${campaign.title}"   />
 
