@@ -76,3 +76,43 @@ display:none !important;
 .navbar-toggler{
       background-color: #ffffff54 !important;
 }
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 27%;
+  right: 20%;
+  background: white;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.show {
+  display: block;
+}
+
+.dropdown-item {
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+
+.dropdown-item p:hover {
+  background-color: lightgray;
+  padding: 10px;
+  margin-right: 20px;
+  border-radius: 10px;
+}
+
+.header-title{
+  padding-left: 7px;
+  padding-top: 5px;
+  color: #6c757d;
+}
+
+.not-found-search{
+  text-align: center;
+  padding-top: 10px;
+}

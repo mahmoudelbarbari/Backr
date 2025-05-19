@@ -1,5 +1,6 @@
 import { registerAccount } from './auth.js';
 import { loginAccount } from './auth.js';
+import { handleCampaignSearch } from './search.js';
 
 async function loadModal() {
     try {
@@ -114,13 +115,21 @@ async function campaignDashboardTable() {
 
 
 
-window.addEventListener('DOMContentLoaded', loadNavbar);
+window.addEventListener('DOMContentLoaded', ()=>{
+    loadNavbar().then(()=>{
+        handleCampaignSearch();
+    });
+});
 
 window.addEventListener('DOMContentLoaded', dashboardNavBar);
 
 window.addEventListener('DOMContentLoaded', campaignDashboardTable);
 
 window.addEventListener('DOMContentLoaded', loadFooter);
+
+window.addEventListener('DOMContentLoaded', () => {
+    handleCampaignSearch();
+});
 
 window.addEventListener('scroll', function() {
     const navbar = document.querySelector('.backr-navbar');

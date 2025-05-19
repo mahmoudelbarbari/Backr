@@ -150,7 +150,7 @@ export class Campaign {
 
   static async searchCampaigns(query) {
     const res = await fetch(
-      `${BASE_URL}/campaigns?q=${encodeURIComponent(query)}`
+      `${BASE_URL}/campaigns?title=${encodeURIComponent(query)}`
     );
     return await res.json();
   }
