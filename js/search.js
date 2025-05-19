@@ -4,10 +4,6 @@ export async function handleCampaignSearch() {
   const searchInput = document.getElementById("campaignSearchInput");
   const resultsContainer = document.getElementById("campaignsDropdown");
 
-    if (!searchInput || !resultsContainer) {
-    console.error("Search elements not found");
-    return;
-  }
   let arr = [];
   searchInput.addEventListener("input", async function (e) {
     const searchTerm = e.target.value.trim();
