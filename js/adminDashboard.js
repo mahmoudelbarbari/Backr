@@ -1,8 +1,7 @@
 import { User, Campaign } from "./apiCalls.js";
-import { checkUser } from './main.js';
+import { checkUser } from "./main.js";
 
-
-  window.addEventListener('DOMContentLoaded',checkUser);
+window.addEventListener("DOMContentLoaded", checkUser);
 async function checkAdmin() {
   try {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -10,16 +9,27 @@ async function checkAdmin() {
       window.location.href = "./unauthorized.html";
       throw new Error("User not authorized");
     }
-  }
-  catch (error) {
+  } catch (error) {
     console.error("Error checking user role:", error);
   }
 }
-window.addEventListener("DOMContentLoaded", checkAdmin);
 
+function greetings() {
+  const greetingMessage = document.getElementById("greetingMessage");
+  const currentHour = new Date().getHours();
+  const userName = JSON.parse(localStorage.getItem("user"))?.name || "User";
+  let greeting = "Good Morning";
+  if (currentHour >= 12) {
+    greeting = "Good evening";
+  }
 
+  greetingMessage.textContent = `${greeting}, ${userName}`;
+}
 
-
+window.addEventListener("DOMContentLoaded", () => {
+  checkAdmin();
+  greetings();
+});
 
 const userData = document.getElementById("usersTableData");
 let allUsers = [];
@@ -78,8 +88,7 @@ const displayUsers = (users) => {
       e.stopPropagation();
 
       await User.updateUser(user.id, { isApproved: !user.isApproved });
-    }
-    );
+    });
     userActionsTd.appendChild(actionBtn);
     userActionsTd.appendChild(ApproveBtn);
 
@@ -98,7 +107,7 @@ const displayUsers = (users) => {
 const displayCampaigns = (campaigns) => {
   const campaignsData = document.getElementById("campaignsTableBody");
   if (!campaignsData) {
-    console.error('Campaigns table not found!');
+    console.error("Campaigns table not found!");
     return;
   }
 
@@ -114,9 +123,8 @@ const displayCampaigns = (campaigns) => {
       const campaignStatusTd = document.createElement("td");
       const campaignActionsTd = document.createElement("td");
 
-  const creatorName = await User.getUsersById(campaign.creatorId); 
-console.log(creatorName);
-  
+      const creatorName = await User.getUsersById(campaign.creatorId);
+      console.log(creatorName);
 
       campaignCreatorTd.textContent = creatorName.name;
       campaignTitleTd.textContent = campaign.title;
@@ -124,16 +132,15 @@ console.log(creatorName);
         campaign.deadline
       ).toLocaleDateString();
 
-   
       const raisedAmount = parseFloat(campaign.raised) || 0;
       const goalAmount = parseFloat(campaign.goal) || 0;
-      
+
       campaignRaisedTd.textContent = `$${raisedAmount.toFixed(2)}`;
       campaignGoalTd.textContent = `$${goalAmount.toFixed(2)}`;
       campaignStatusTd.textContent = campaign.isApproved
         ? "Approved"
         : "Pending";
-      campaignStatusTd.className = campaign.isApproved  
+      campaignStatusTd.className = campaign.isApproved
         ? "text-success"
         : "text-warning ";
 
@@ -154,30 +161,29 @@ console.log(creatorName);
           await Campaign.updateCampaign(campaign.id, {
             isApproved: !campaign.isApproved,
           });
- 
+
           fetchAndDisplayCampaigns();
         } catch (error) {
           console.error("Error updating campaign:", error);
           alert("Failed to update campaign status");
         }
       });
-      const deleteBtn = document.createElement('button');
-    deleteBtn.type = 'button';
-    deleteBtn.innerHTML = `Delete<i class="bi bi-trash"></i> `;
-      
-      deleteBtn.className = 'btn btn-outline-danger btn-sm me-1';
-     
-      deleteBtn.addEventListener('click', async (e) => { 
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.innerHTML = `Delete<i class="bi bi-trash"></i> `;
+
+      deleteBtn.className = "btn btn-outline-danger btn-sm me-1";
+
+      deleteBtn.addEventListener("click", async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        try{
-     
+        try {
           await Campaign.deleteCampaign(campaign.id);
-           fetchAndDisplayCampaigns();
-        }catch (error) {  
-          console.error('Error deleting campaign:', error);
+          fetchAndDisplayCampaigns();
+        } catch (error) {
+          console.error("Error deleting campaign:", error);
         }
-      })
+      });
 
       campaignActionsTd.appendChild(actionBtn);
       campaignActionsTd.appendChild(deleteBtn);
@@ -223,16 +229,18 @@ async function fetchAndDisplayCampaigns() {
 
 async function loadCampaignsTable() {
   try {
-    const response = await fetch('./components/dashboardTable.html');
-    if (!response.ok) throw new Error(`Failed to load campaigns table: ${response.status}`);
+    const response = await fetch("./components/dashboardTable.html");
+    if (!response.ok)
+      throw new Error(`Failed to load campaigns table: ${response.status}`);
     const tableContent = await response.text();
     document.getElementById("campaignsTabelContent").innerHTML = tableContent;
-    
 
     await fetchAndDisplayCampaigns();
   } catch (error) {
     console.error("Error loading campaigns table:", error);
-    document.getElementById("campaignsTabelContent").innerHTML = `<div class="alert alert-danger">Failed to load campaigns table: ${error.message}</div>`;
+    document.getElementById(
+      "campaignsTabelContent"
+    ).innerHTML = `<div class="alert alert-danger">Failed to load campaigns table: ${error.message}</div>`;
   }
 }
 
