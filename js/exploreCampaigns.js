@@ -25,11 +25,9 @@ export async function renderApprovedCampaigns() {
         ? Math.min(100, Math.round((campaign.raised / campaign.goal) * 100))
         : 0;
 
-    cardBody.innerHTML = `
+        cardBody.innerHTML = `
             <div class="card campaign-card">
-            <span class="badge bg-light w-50 opacity-100  position-absolute  text-dark">${
-              campaign.category
-            }</span>
+            <span class="badge bg-light w-50 opacity-100  position-absolute  text-dark">${campaign.category}</span>
                 <img src="${campaign.image}"   alt="${campaign.title}"   />
 
                 <div class="card-body p-0">
