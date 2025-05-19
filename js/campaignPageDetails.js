@@ -1,4 +1,5 @@
-import { User,Campaign } from "./apiCalls.js"; 
+import { User,Campaign,Pledge } from "./apiCalls.js"; 
+import { checkUser } from "./main.js";
 
 async function renderCampaignDetails() {
     try {
@@ -45,14 +46,20 @@ async function renderCampaignDetails() {
 
     const paymentForm = document.getElementById('paymentForm');
     if (paymentForm) {
-        console.log("Payment form found");
+      
         paymentForm.addEventListener('submit', async (e) => {
+            checkUser();
             const pledge = document.getElementById('pledgeAmount').value;
              let raisedAmount = parseFloat(campaignDetails.raised) || 0;
             raisedAmount += parseFloat(pledge);
             handlePayment(e);
             try { await Campaign.updateCampaign(campaignId, {
                 raised: raisedAmount
+            });
+            await Pledge.createPledge({
+                amount: pledge,
+                campaignId: campaignId,
+                userId: localStorage.getItem("user").id
             });
         } catch (error) {
                 console.error("Error processing payment:", error);
