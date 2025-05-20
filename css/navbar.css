@@ -112,6 +112,11 @@ display:none !important;
   color: #6c757d;
 }
 
+.campaign-link {
+  text-decoration: none;
+  color: black;
+}
+
 .not-found-search{
   text-align: center;
   padding-top: 10px;

@@ -100,7 +100,7 @@ async function exploreSearch() {
                             }</p>
                                 <p class="card-text text-dark"><strong>Deadline :</strong> ${campaign.deadline
                             }</p>
-                                <a href="#" class="arrow"><i class="bi bi-arrow-right"></i></a>
+                                <a href="../campaign.html?id=${campaign.id}" class="arrow"><i class="bi bi-arrow-right"></i></a>
                                 <progress class="progress" max="100" value="${progress}"></progress>
                             </div>
                         </div>

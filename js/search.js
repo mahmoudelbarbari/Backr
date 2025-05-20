@@ -34,7 +34,6 @@ export async function handleCampaignSearch() {
       resultsContainer.classList.add("show");
     }
   }); // end of search input
-
 }
 
 function displayResults(campaigns) {
@@ -47,7 +46,9 @@ function displayResults(campaigns) {
             <label class= "header-title">Campaigns:</label>
             <hr>
             <div class="dropdown-item">
-                <p>${c.title}</p>
+                  <a href="../campaign.html?id=${c.id}" class="campaign-link">
+    ${c.title}
+  </a>
             </div>
         `
           )
