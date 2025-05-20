@@ -24,13 +24,13 @@ z-index:2
   background-attachment: fixed;
 }
 .about-section__overlay {
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.34);
   z-index: 1;
 }
 .about-section__content {
   position: relative;
   z-index: 2;
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -41,7 +41,7 @@ z-index:2
 .about-section__subtitle {
   color: #fff;
   text-shadow: 0 2px 16px rgba(0,0,0,0.18);
-  max-width: 600px;
+  max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -59,11 +59,64 @@ z-index:2
   border-radius: 1.5rem;
   /* box-shadow: 0 4px 32px rgba(0,0,0,0.08); */
 }
+
+
+/*  */
+.howItworks-section {
+  min-height: 100vh;
+  background: url('./assets/images/how.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.howItworks-section__overlay {
+  background: rgba(0,0,0,0.22);
+  z-index: 1;
+}
+.howItworks-section__content {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.howItworks-section__title {
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.howItworks-section__subtitle {
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.howItworks-section__features {
+  color: #fff;
+  font-size: 1.25rem;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.18);
+}
+.howItworks-section__feature-icon {
+  font-size: 1.3em;
+  vertical-align: middle;
+}
+.howItworks-section__image {
+  max-width: 100%;
+  border-radius: 1.5rem;
+  /* box-shadow: 0 4px 32px rgba(0,0,0,0.08); */
+}
 @media (max-width: 991px) {
   .about-section__title {
     font-size: 1.5rem;
   }
   .about-section__subtitle {
+    font-size: 1rem;
+  }
+  .howItworks-section__title {
+    font-size: 1.5rem;
+  }
+  .howItworks-section__subtitle {
     font-size: 1rem;
   }
 }

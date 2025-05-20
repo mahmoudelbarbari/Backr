@@ -121,3 +121,6 @@ display:none !important;
   text-align: center;
   padding-top: 10px;
 }
+.search-btn_dn{
+  display: none !important;
+}

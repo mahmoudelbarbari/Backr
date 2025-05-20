@@ -27,7 +27,7 @@ export async function renderApprovedCampaigns() {
 
         cardBody.innerHTML = `
             <div class="card campaign-card" data-id="${campaign.id}">
-            <span class="badge bg-light w-50 opacity-100  position-absolute  text-dark">${campaign.category}</span>
+            <span class="badge bg-light w-25   position-absolute  text-dark campaign-category">${campaign.category}</span>
                 <img src="${campaign.image}"   alt="${campaign.title}"   />
 
                 <div class="card-body p-0">
