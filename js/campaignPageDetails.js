@@ -45,12 +45,15 @@ async function renderCampaignDetails() {
 
 
     const paymentForm = document.getElementById('paymentForm');
+    const rewardId= campaignDetails.rewards[0].rewardIdientifier;
+    
     if (paymentForm) {
       
         paymentForm.addEventListener('submit', async (e) => {
             checkUser();
             const pledge = document.getElementById('pledgeAmount').value;
              let raisedAmount = parseFloat(campaignDetails.raised) || 0;
+             
             raisedAmount += parseFloat(pledge);
             handlePayment(e);
             const currentUser = JSON.parse(localStorage.getItem('user'));
@@ -59,12 +62,13 @@ async function renderCampaignDetails() {
                 await Campaign.updateCampaign(campaignId, {
                 raised: raisedAmount
             });
+            console.log(campaignDetails.rewards.rewardIdentifier)
             await Pledge.createPledge({
 
                 campaignId: campaignId,
                 userId: currentUser.id,
                 amount: pledge,
-                rewardId: campaignDetails.rewards[0].rewardId
+                rewardId: rewardId
                 
                 
             });

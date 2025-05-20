@@ -37,9 +37,10 @@ const creatorId = currentUser.id;
     const category = CampaignCategory.value;
     const rewards = [
         {
-          id,
+            
             title: campaignRewardsTitle.value,
             description: campaignRewardsDescription.value,
+            rewardIdientifier: Date.now().toString(),
             
         }
     ]
