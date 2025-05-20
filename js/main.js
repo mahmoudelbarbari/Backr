@@ -1,6 +1,7 @@
 import { registerAccount } from './auth.js';
 import { loginAccount } from './auth.js';
 import { handleCampaignSearch } from './search.js';
+import{customExplore} from './exploreCampaigns.js';
 
 async function loadModal() {
     try {
@@ -30,7 +31,7 @@ async function loadNavbar() {
         if (!response.ok) throw new Error(` error! status: ${response.status}`);
         const navbarContent = await response.text();
         document.getElementById('navbarContainer').innerHTML = navbarContent;
-        
+        customExplore();
         const signBtn = document.getElementById('signBtn');
         if (signBtn) {
             signBtn.addEventListener('click', loadModal);
@@ -38,9 +39,12 @@ async function loadNavbar() {
         
   
         await checkLogin();
+        
     } catch (error) {
         console.error('Error loading navbar:', error);
-    }
+        
+
+}
 }
  async function checkLogin() {
     try {

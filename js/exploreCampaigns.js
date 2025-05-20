@@ -136,3 +136,14 @@ async function campaignNavigator() {
     });
 }
 // window.addEventListener("DOMContentLoaded", campaignNavigator);
+export async function customExplore() {
+const exploreBtn = document.getElementById('exploreBtn');
+if (exploreBtn && window.location.pathname.endsWith('explore.html')) {
+    exploreBtn.onclick = (e) => {
+        e.preventDefault();
+        window.location.href = '#';
+    };
+}else {
+    console.error('Explore button not found or not on the correct page.');
+}
+}
