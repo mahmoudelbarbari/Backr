@@ -103,6 +103,11 @@ async function displayCampaigns(campaigns) {
     actionBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       e.stopPropagation();
+      const currentUser = JSON.parse(localStorage.getItem('user'));
+      if(currentUser == null) {
+        window.location.href = "./unauthorized.html";
+        throw new Error("User not authorized"); // Replace with your actual error handling logic
+      }
       try {
         await Campaign.deleteCampaign(campaign.id);
         displayCampaigns(campaigns);
