@@ -9,8 +9,6 @@ async function renderCampaignDetails() {
         return;
     }
     const campaignCreatorId = await User.getUserByCampaignId(campaignId);
-    const urlParams = new URLSearchParams(window.location.search);
-     campaignId = urlParams.get("id");
     const campaignDetails = await Campaign.getCampaignById(campaignId);
     const campaignImage = document.getElementById("campaignImage");
     const campaignTitle = document.getElementById("campaignTitle");

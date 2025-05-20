@@ -86,7 +86,7 @@ async function exploreSearch() {
                                 : 0;
 
                         cardBody.innerHTML = `
-                        <div class="card campaign-card">
+                        <div class="card campaign-card" data-id="${campaign.id}">
                         <span class="badge bg-light w-50 opacity-100  position-absolute  text-dark">${campaign.category
                             }</span>
                             <img src="${campaign.image}"   alt="${campaign.title
@@ -100,13 +100,14 @@ async function exploreSearch() {
                             }</p>
                                 <p class="card-text text-dark"><strong>Deadline :</strong> ${campaign.deadline
                             }</p>
-                                <a href="../campaign.html?id=${campaign.id}" class="arrow"><i class="bi bi-arrow-right"></i></a>
+                                <a href="#" class="arrow"><i class="bi bi-arrow-right"></i></a>
                                 <progress class="progress" max="100" value="${progress}"></progress>
                             </div>
                         </div>
                     `;
                         rowContainer.appendChild(cardBody);
                     });
+                    campaignNavigator();
                 }
             } catch (error) {
                 console.error("Error fetching campaigns:", error);

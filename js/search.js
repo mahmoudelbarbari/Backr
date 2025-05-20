@@ -36,7 +36,7 @@ export async function handleCampaignSearch() {
   }); // end of search input
 }
 
-function displayResults(campaigns) {
+async function displayResults(campaigns) {
   const resultsContainer = document.getElementById("campaignsDropdown");
   resultsContainer.innerHTML =
     campaigns.length > 0
@@ -45,14 +45,24 @@ function displayResults(campaigns) {
             (c) => `
             <label class= "header-title">Campaigns:</label>
             <hr>
-            <div class="dropdown-item">
-                  <a href="../campaign.html?id=${c.id}" class="campaign-link">
-    ${c.title}
-  </a>
+            <div class="dropdown-item " data-id="${c.id}">
+              <p> ${c.title}</p>
             </div>
         `
           )
           .join("")
       : `<div class="not-found-search"> <p> No campaigns found..! </p> </div>`;
   resultsContainer.classList.add("show");
+
+  document.querySelectorAll('.dropdown-item').forEach(campaign => {
+    campaign.addEventListener('click', () => {
+        const id = campaign.getAttribute('data-id');
+        const campaignId = id;
+        console.log(campaignId)
+        sessionStorage.setItem('campaignId', campaignId);
+        window.location.href = `../campaign.html `;
+     
+    });
+});
+  
 }
