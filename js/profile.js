@@ -1,4 +1,4 @@
-import { User } from '../js/apiCalls.js';
+import { User,Campaign,Pledge } from '../js/apiCalls.js';
 function addScrolledClass() {
     const navbar = document.querySelector('.backr-navbar');
     if (navbar && window.scrollY > document.querySelector('.settings-header').offsetHeight) {
@@ -28,6 +28,7 @@ window.addEventListener('scroll', addScrolledClass);
             const myPledges = document.getElementById('myPledges')
             const userFname = document.getElementById('userFName')
             const userEmail = document.getElementById('userEmail')
+            
 
             if (user.role === 'campaigner') {
                 createCampaign.style.display = 'block';
@@ -35,6 +36,7 @@ window.addEventListener('scroll', addScrolledClass);
                 accountRoleDescription.textContent = 'You can create campaigns and track your progress';
                 adminDashboardBtn.style.display = 'none';
                 myPledges.style.display = 'none';
+     
             } else if (user.role === 'admin') {
                 adminDashboardBtn.style.display = 'block';
                 createCampaign.style.display = 'none';
@@ -45,8 +47,9 @@ window.addEventListener('scroll', addScrolledClass);
                 accountRole.textContent = 'Backer';
                 accountRoleDescription.textContent = 'You can pledge to campaigns and track your contributions';
                 noneBacker.style.display = 'none';
-                document.getElementById('profileCampaigns').style.display = 'none';
+               
                 myPledges.style.display = 'block';
+            
             }
             userFname.value = `${user.name}`
             userEmail.value = `${user.email}`
@@ -175,3 +178,108 @@ localStorage.setItem("user", JSON.stringify(user));
 
 }
 window.addEventListener('DOMContentLoaded', updatenewPassword);
+
+
+async function getMyPledges() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const pledgesList = document.getElementById('pledgesList');
+
+    try {
+        const pledges = await Pledge.getPledgesByUser(user.id);
+        console.log(pledges);
+
+        for (const pledge of pledges) {
+            const pledgedCampaign = await Campaign.getCampaignById(pledge.campaignId);
+            const campaignCreator = await User.getUserByCampaignId(pledgedCampaign.id);
+
+            pledgesList.innerHTML += `
+                <div class="card mb-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <div class="d-flex align-items-center">
+                                    <img src="${pledgedCampaign.image}" alt="Campaign" 
+                                        class="rounded pledged-campaign-img" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div class="ms-3">
+                                        <h6 class="mb-1 pledged-campaign-title">${pledgedCampaign.title}</h6>
+                                        <p class="text-muted mb-0 pledged-campaign-creator">${campaignCreator.name}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-md-center mt-3 mt-md-0">
+                                    <div class="text-muted mb-1">Pledged Amount</div>
+                                    <div class="fw-bold">$${pledge.amount}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-md-end mt-3 mt-md-0">
+                                    <div class="text-muted mb-1">Reward</div>
+                                    <div class="fw-bold">${pledgedCampaign.rewards[0].title}</div>
+                                    <small class="text-muted">${pledgedCampaign.rewards[0].description }</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+    } catch (error) {
+        console.error('Error fetching pledges:');
+    }
+}
+
+window.addEventListener('DOMContentLoaded', getMyPledges);
+
+async function getCampaignsByUser() {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    console.log(currentUser);
+    const campaignsList = document.getElementById('campaignsList');
+    const noCampaigns = document.getElementById('noCampaigns')
+    try {       
+    const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
+    // if ( campaigns.length === 0) {
+    //     noCampaigns.style.display = 'block';
+    //     return;
+    // }else{
+    //     noCampaigns.style.display = 'none';
+    // }
+    console.log(campaigns);
+    for (const campaign of campaigns) {
+        console.log(campaign);
+        campaignsList.innerHTML += `<div class="card mb-3 border-0 shadow-sm">
+                                            <div class="card-body">
+                                                <div class="row align-items-center">
+                                                    <div class="col-md-6">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="${campaign.image}" alt="Campaign" 
+                                                                class="rounded pledged-campaign-img" style="width: 80px; height: 80px; object-fit: cover;">
+                                                            <div class="ms-3">
+                                                                <h6 class="mb-1 pledged-campaign-title">${campaign.title}</h6>
+                                                                <p class="text-muted mb-0 pledged-campaign-creator">${campaign.category}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="text-md-center mt-3 mt-md-0">
+                                                            <div class="text-muted mb-1">Raised</div>
+                                                            <div class="fw-bold">$${campaign.raised}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="text-md-end mt-3 mt-md-0">
+                                                            <div class="text-muted mb-1">Goal</div>
+                                                            <div class="fw-bold">$${campaign.goal}</div>
+                                                            <small class="text-muted">${campaign.deadline}</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`
+}
+    } catch (error) {
+        console.error('Error fetching campaigns:', error);
+    }
+}
+window.addEventListener('DOMContentLoaded', getCampaignsByUser);
