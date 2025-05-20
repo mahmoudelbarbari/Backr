@@ -186,7 +186,7 @@ async function getMyPledges() {
 
     try {
         const pledges = await Pledge.getPledgesByUser(user.id);
-        console.log(pledges);
+        // console.log(pledges);
 
         for (const pledge of pledges) {
             const pledgedCampaign = await Campaign.getCampaignById(pledge.campaignId);
@@ -239,13 +239,13 @@ async function getCampaignsByUser() {
     const noCampaigns = document.getElementById('noCampaigns')
     try {       
     const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
-    // if ( campaigns.length === 0) {
-    //     noCampaigns.style.display = 'block';
-    //     return;
-    // }else{
-    //     noCampaigns.style.display = 'none';
-    // }
-    console.log(campaigns);
+    if (!campaigns ||  campaigns.length === 0) {
+        noCampaigns.style.display = 'block';
+        return;
+    }
+        noCampaigns.style.display = 'none';
+    
+    // console.log(campaigns);
     for (const campaign of campaigns) {
         console.log(campaign);
         campaignsList.innerHTML += `<div class="card mb-3 border-0 shadow-sm">
