@@ -1,4 +1,5 @@
 import { User,Campaign,Pledge } from '../js/apiCalls.js';
+let noCampaigns = document.getElementById('noCampaigns')
 function addScrolledClass() {
     const navbar = document.querySelector('.backr-navbar');
     if (navbar && window.scrollY > document.querySelector('.settings-header').offsetHeight) {
@@ -29,6 +30,7 @@ window.addEventListener('scroll', addScrolledClass);
             const userFname = document.getElementById('userFName')
             const userEmail = document.getElementById('userEmail')
             
+            
 
             if (user.role === 'campaigner') {
                 createCampaign.style.display = 'block';
@@ -47,7 +49,7 @@ window.addEventListener('scroll', addScrolledClass);
                 accountRole.textContent = 'Backer';
                 accountRoleDescription.textContent = 'You can pledge to campaigns and track your contributions';
                 noneBacker.style.display = 'none';
-               
+               noCampaigns.style.display = 'none';
                 myPledges.style.display = 'block';
             
             }
@@ -234,15 +236,19 @@ window.addEventListener('DOMContentLoaded', getMyPledges);
 
 async function getCampaignsByUser() {
     const currentUser = JSON.parse(localStorage.getItem("user"));
-    console.log(currentUser);
+    // console.log(currentUser);
     const campaignsList = document.getElementById('campaignsList');
-    const noCampaigns = document.getElementById('noCampaigns')
-    try {       
+   
+    try {     
+        console.log("from inside try",currentUser)  
     const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
-    if (!campaigns ||  campaigns.length === 0) {
-        noCampaigns.style.display = 'block';
+    if (!campaigns ||  campaigns.length === 0 ) {
+       if (currentUser.isApproved == true){
+      noCampaigns.style.display = 'block';
+       }
+  
         return;
-    }
+    }else
         noCampaigns.style.display = 'none';
     
     // console.log(campaigns);

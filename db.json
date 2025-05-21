@@ -73,7 +73,17 @@
       "password": "1234",
       "role": "backer",
       "isActive": true,
-      "isApproved": true
+      "isApproved": false
+    },
+    {
+      "id": "a311",
+      "name": "baset hmooda",
+      "email": "basethmooda@example.com",
+      "phoneNumber": "01033529882",
+      "password": "Tt12345",
+      "role": "campaigner",
+      "isActive": true,
+      "isApproved": false
     }
   ],
   "campaigns": [

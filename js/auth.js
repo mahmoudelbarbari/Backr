@@ -124,7 +124,7 @@ export function loginAccount() {
       if (res.role === "admin") {
         window.location.href = "../adminDashboard.html";
       } else if (res.role === "campaigner") {
-        window.location.href = "../campaignerDashboard.html";
+        window.location.href = "../profile.html";
       } else if (res.role === "backer") {
         window.location.href = "../index.html";
       }
