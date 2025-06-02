@@ -236,13 +236,19 @@ window.addEventListener('DOMContentLoaded', getMyPledges);
 
 async function getCampaignsByUser() {
     const currentUser = JSON.parse(localStorage.getItem("user"));
+    const createCampaign = document.getElementById('createCampaignBtn')
     // console.log(currentUser);
     const campaignsList = document.getElementById('campaignsList');
    
     try {     
         console.log("from inside try",currentUser)  
-        if (currentUser.isApproved == false || currentUser.role == 'backer') {
+        if ( currentUser.role == 'backer') {
             noCampaigns.style.display = 'none';
+            return;
+        }
+        if (currentUser.isApproved == false) {
+            accountRoleDescription.textContent = 'Your  request to be a campaigner is pending approval';
+            createCampaign.disabled = true;
             return;
         }
     const campaigns = await Campaign.getCampaignsByUser(currentUser.id);

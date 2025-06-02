@@ -114,6 +114,16 @@
       "role": "backer",
       "isActive": true,
       "isApproved": true
+    },
+    {
+      "id": "97f3",
+      "name": "Newacc",
+      "email": "ahmedcampaigner@gmail.com",
+      "phoneNumber": "01033529882",
+      "password": "1234",
+      "role": "campaigner",
+      "isActive": true,
+      "isApproved": false
     }
   ],
   "campaigns": [
@@ -268,6 +278,5 @@
       "amount": "50",
       "rewardId": "1748878247055"
     }
-    
   ]
 }
