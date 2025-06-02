@@ -241,6 +241,10 @@ async function getCampaignsByUser() {
    
     try {     
         console.log("from inside try",currentUser)  
+        if (currentUser.isApproved == false || currentUser.role == 'backer') {
+            noCampaigns.style.display = 'none';
+            return;
+        }
     const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
     if (!campaigns ||  campaigns.length === 0 ) {
        if (currentUser.isApproved == true){

@@ -64,8 +64,16 @@ async function getCampaignsByUser() {
 
 async function getPledgesByUser() {
   const currentUser = JSON.parse(localStorage.getItem("user"));
-  const pledges = await Pledge.getPledgesByUser(currentUser.id);
-  return pledges;
+  const campaigns = await Campaign.getCampaignsByUser(currentUser.id);
+  
+
+  let allPledges = [];
+  for (const campaign of campaigns) {
+    const campaignPledges = await Pledge.getPledgesByCampaign(campaign.id);
+    allPledges = allPledges.concat(campaignPledges);
+  }
+  
+  return allPledges;
 }
 
 async function displayCampaigns(campaigns) {
@@ -82,13 +90,12 @@ async function displayCampaigns(campaigns) {
     row.innerHTML = `
       <td class="text-wrap">${campaign.title}</td>
       <td class="d-none d-md-table-cell">${new Date(
-        campaign.deadline
-      ).toLocaleDateString()}</td>
+      campaign.deadline
+    ).toLocaleDateString()}</td>
       <td>$${campaign.raised}</td>
       <td class="d-none d-lg-table-cell">$${campaign.goal}</td>
 
-      <td><span class="badge text-muted border ${
-        campaign.isApproved ? "border-success" : "border-warning"
+      <td><span class="badge text-muted border ${campaign.isApproved ? "border-success" : "border-warning"
       }">${campaign.isApproved ? "Active" : "Pending"}</span></td>
       <td class="text-center" id="CampaignActionbtns">
         
@@ -104,9 +111,9 @@ async function displayCampaigns(campaigns) {
       e.preventDefault();
       e.stopPropagation();
       const currentUser = JSON.parse(localStorage.getItem('user'));
-      if(currentUser == null) {
+      if (currentUser == null) {
         window.location.href = "./unauthorized.html";
-        throw new Error("User not authorized"); // Replace with your actual error handling logic
+        throw new Error("User not authorized"); 
       }
       try {
         await Campaign.deleteCampaign(campaign.id);
@@ -178,7 +185,7 @@ const loadPledgesTable = async (pledges) => {
       pledgeTable.appendChild(pledgeRowTr);
     } catch (error) {
       console.error("Error processing pledge:", pledge, error);
- 
+
     }
   }
 };
@@ -208,6 +215,7 @@ async function loadCampaignerDashboardTable() {
 async function fetchAndDisplayPledges() {
   try {
     const allPledges = await getPledgesByUser();
+
     await loadPledgesTable(allPledges);
     console.log(allPledges);
   } catch (error) {
@@ -220,5 +228,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   loadCampaignerDashboardTable();
   checkCampaigner();
   greetings();
-  await fetchAndDisplayPledges();
+  fetchAndDisplayPledges();
 });
